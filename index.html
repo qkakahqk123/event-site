@@ -7,185 +7,270 @@
 <title>Events & Exhibitions</title>
 
 <style>
-/* 전체 화면 기본 설정 */
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100vh;  
-  overflow-x: hidden; 
-  overflow-y: auto;   
-  font-family: Arial, sans-serif;
-  background:
-    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
-    url("background.jpg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed; 
-  text-align: center;
+
+/* =========================
+기본 화면
+========================= */
+
+html, body{
+margin:0;
+padding:0;
+width:100%;
+min-height:100vh;
+overflow-x:hidden;
+font-family:Arial, sans-serif;
+
+background:
+linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+url("background.jpg");
+
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+
+text-align:center;
 }
+
+/* 제목 */
 
 h1{
-  font-size:4vw;
-  margin-top:3vh;
-  color:white;
-  text-shadow:0 3px 10px rgba(0,0,0,0.6);
-  min-font-size:24px;
-  max-font-size:50px;
+color:white;
+font-size:4vw;
+margin-top:3vh;
+text-shadow:0 3px 10px rgba(0,0,0,0.6);
 }
 
-/* 갤러리 썸네일 */
+/* =========================
+갤러리
+========================= */
+
 .gallery{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:3vw;
-  margin-top:4vh;
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:3vw;
+margin-top:4vh;
 }
 
 .thumbnail{
-  width:320px;
-  height:320px;
-  object-fit:cover;
-  border-radius:15px;
-  cursor:pointer;
-  transition:0.3s;
-  box-shadow:0 8px 25px rgba(0,0,0,0.3);
+
+width:320px;
+height:320px;
+
+object-fit:cover;
+
+border-radius:15px;
+cursor:pointer;
+
+transition:0.3s;
+
+box-shadow:0 8px 25px rgba(0,0,0,0.3);
 }
 
 .thumbnail:hover{
-  transform:scale(1.05);
+transform:scale(1.05);
 }
 
-/* 팝업 전체 */
-.popup, .qr-popup {
-  display: none;
-  position: fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background: rgba(0,0,0,0.8);
-  justify-content: center; 
-  align-items: center;     
-  flex-direction: column;
-  z-index:1000;
-  overflow-y:auto;  
-  -webkit-overflow-scrolling: touch;
+/* =========================
+팝업
+========================= */
+
+.popup,.qr-popup{
+
+display:none;
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:rgba(0,0,0,0.8);
+
+justify-content:center;
+align-items:center;
+
+z-index:1000;
+
+overflow-y:auto;
+
 }
 
-/* 팝업 콘텐츠 */
-.popup-content {
-  background:white;
-  width:90%;
-  max-width:1000px;
-  max-height:90vh; 
-  overflow-y:auto;
-  padding:2vw;
-  border-radius:15px;
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  align-items:center;
-  gap:2vw;
-  position: relative;
+/* 팝업 박스 */
+
+.popup-content{
+
+background:white;
+
+width:90%;
+max-width:1000px;
+
+padding:2vw;
+
+border-radius:15px;
+
+display:flex;
+
+gap:2vw;
+
+align-items:center;
+
+position:relative;
+
 }
+
+/* 팝업 이미지 */
 
 .popup-content img{
-  width:40%;
-  max-width:400px;
-  min-width:250px;
-  aspect-ratio:3/4;
-  object-fit:cover;
-  border-radius:10px;
+
+width:40%;
+max-width:420px;
+
+height:auto;
+
+border-radius:10px;
+
+object-fit:contain;
+
 }
 
-/* X 버튼 */
-.close-btn {
-  position: absolute; 
-  top: 10px;
-  right: 10px;
-  border: none;
-  background: transparent;
-  font-size: 1.8em;
-  cursor: pointer;
-  color: #333;
-  z-index: 10;
+/* 닫기 버튼 */
+
+.close-btn{
+
+position:absolute;
+
+top:10px;
+right:15px;
+
+border:none;
+background:transparent;
+
+font-size:28px;
+cursor:pointer;
+
 }
 
-.close-btn:hover {
-  color: red;
-}
+/* 설명 */
 
-/* 정보 영역 */
 .info{
-  flex:1 1 250px;
-  min-width:200px;
-  text-align:left;
-  font-size:1em;
-  line-height:1.6;
+
+flex:1;
+
+text-align:left;
+
+line-height:1.6;
+
 }
 
 /* QR 버튼 */
+
 .qrbtn{
-  margin-top:20px;
-  padding:1em 2em;
-  border:none;
-  border-radius:10px;
-  background:#222;
-  color:white;
-  font-size:1em;
-  cursor:pointer;
+
+margin-top:20px;
+
+padding:12px 25px;
+
+border:none;
+
+border-radius:10px;
+
+background:#222;
+
+color:white;
+
+font-size:16px;
+
+cursor:pointer;
+
 }
 
 .qrbtn:hover{
-  background:black;
+
+background:black;
+
 }
 
-/* QR 박스 */
+/* =========================
+QR 팝업
+========================= */
+
 .qr-box{
-  background:white;
-  padding:2em 2em 3em 2em; 
-  border-radius:15px;
-  text-align:center;
-  position:relative;
+
+background:white;
+
+padding:30px;
+
+border-radius:15px;
+
+text-align:center;
+
 }
 
 .qr-box img{
-  width:50vw;
-  max-width:300px;
-  height:auto;
-  margin-top:1em;
+
+width:60vw;
+max-width:320px;
+
 }
 
-.edit{
-  color:red;
-  font-weight:bold;
-}
+/* =========================
+모바일
+========================= */
 
-/* 모바일 대응 */
 @media screen and (max-width:768px){
-  html, body {
-    background-attachment: scroll; 
-  }
-  .popup-content{
-    flex-direction:column;
-    align-items:center;
-    padding:1em;
-  }
-  .popup-content img{
-    width:80%;
-    max-width:350px;
-    margin-bottom:1em;
-  }
-  .info{
-    font-size:0.9em;
-    min-width:auto;
-  }
-  h1{
-    font-size:6vw;
-  }
+
+html,body{
+background-attachment:scroll;
 }
+
+h1{
+font-size:7vw;
+}
+
+/* 갤러리 */
+
+.thumbnail{
+width:85vw;
+height:85vw;
+}
+
+/* 팝업 */
+
+.popup-content{
+
+flex-direction:column;
+
+width:92%;
+
+padding:20px;
+
+}
+
+/* 이미지 */
+
+.popup-content img{
+
+width:100%;
+
+max-width:420px;
+
+}
+
+/* 설명 */
+
+.info{
+
+width:100%;
+
+font-size:15px;
+
+}
+
+}
+
 </style>
 </head>
 
@@ -194,138 +279,286 @@ h1{
 <h1>전시 및 이벤트</h1>
 
 <div class="gallery">
-  <img src="beauty.png" class="thumbnail" onclick="openPopup('popup1')">
-  <img src="soju.png" class="thumbnail" onclick="openPopup('popup2')">
-  <img src="bts.png" class="thumbnail" onclick="openPopup('popup3')">
+
+<img src="beauty.png" class="thumbnail" onclick="openPopup('popup1')">
+
+<img src="soju.png" class="thumbnail" onclick="openPopup('popup2')">
+
+<img src="bts.png" class="thumbnail" onclick="openPopup('popup3')">
+
 </div>
 
-<!-- 팝업: BEAUTY -->
+<!-- POPUP 1 -->
+
 <div id="popup1" class="popup">
-  <div class="popup-content">
-    <button class="close-btn" onclick="closePopup('popup1')">✖</button>
-    <img src="beauty.png">
-    <div class="info">
-      <p class="edit">🔴 아래 내용 직접 작성하세요</p>
-      <b>한국어</b><br>행사 이름 : 하하 호호<br>날짜 : 언젠가<br>장소 : 서울 어딘가<br>가는 방법 : 택시<br>설명 : 가보면 알아요<br><br>
-      <b>English</b><br>Event Name : DSDA<br>Date : DDDDD<br>Location : SSSSS<br>How to get there : SSSSS<br>Description : AAAAA<br><br>
-      <b>日本語</b><br>イベント名 : DDDD<br>日付 : DDDD<br>場所 : DDDD<br>行き方 : DDDD<br>説明 : DDDD<br><br>
-      <button class="qrbtn" onclick="openQR('qr1')">📍 MAP QR</button>
-    </div>
-  </div>
+
+<div class="popup-content">
+
+<button class="close-btn" onclick="closePopup('popup1')">✖</button>
+
+<img src="beauty.png">
+
+<div class="info">
+
+<b>한국어</b><br>
+행사 이름 : 하하 호호<br>
+날짜 : 언젠가<br>
+장소 : 서울 어딘가<br>
+가는 방법 : 택시<br>
+설명 : 가보면 알아요<br><br>
+
+<b>English</b><br>
+Event Name : DDDD<br>
+Date : DDDD<br>
+Location : DDDD<br>
+How to get there : DDDD<br>
+Description : DDDD<br><br>
+
+<b>日本語</b><br>
+イベント名 : DDDD<br>
+日付 : DDDD<br>
+場所 : DDDD<br>
+行き方 : DDDD<br>
+説明 : DDDD<br><br>
+
+<button class="qrbtn" onclick="openQR('qr1')">📍 MAP QR</button>
+
+</div>
+</div>
 </div>
 
-<!-- 팝업: SOJU -->
+
+<!-- POPUP 2 -->
+
 <div id="popup2" class="popup">
-  <div class="popup-content">
-    <button class="close-btn" onclick="closePopup('popup2')">✖</button>
-    <img src="soju.png">
-    <div class="info">
-      <p class="edit">🔴 아래 내용 직접 작성하세요</p>
-      <b>한국어</b><br>행사 이름 : 하하 호호<br>날짜 : 언젠가<br>장소 : 서울 어딘가<br>가는 방법 : 택시<br>설명 : 가보면 알아요<br><br>
-      <b>English</b><br>Event Name : DSDA<br>Date : DDDDD<br>Location : SSSSS<br>How to get there : SSSSS<br>Description : AAAAA<br><br>
-      <b>日本語</b><br>イベント名 : DDDD<br>日付 : DDDD<br>場所 : DDDD<br>行き方 : DDDD<br>説明 : DDDD<br><br>
-      <button class="qrbtn" onclick="openQR('qr2')">📍 MAP QR</button>
-    </div>
-  </div>
+
+<div class="popup-content">
+
+<button class="close-btn" onclick="closePopup('popup2')">✖</button>
+
+<img src="soju.png">
+
+<div class="info">
+
+<b>한국어</b><br>
+행사 이름 : 하하 호호<br>
+날짜 : 언젠가<br>
+장소 : 서울 어딘가<br>
+가는 방법 : 택시<br>
+설명 : 가보면 알아요<br><br>
+
+<b>English</b><br>
+Event Name : DDDD<br>
+Date : DDDD<br>
+Location : DDDD<br>
+How to get there : DDDD<br>
+Description : DDDD<br><br>
+
+<b>日本語</b><br>
+イベント名 : DDDD<br>
+日付 : DDDD<br>
+場所 : DDDD<br>
+行き方 : DDDD<br>
+説明 : DDDD<br><br>
+
+<button class="qrbtn" onclick="openQR('qr2')">📍 MAP QR</button>
+
+</div>
+</div>
 </div>
 
-<!-- 팝업: BTS -->
+
+<!-- POPUP 3 -->
+
 <div id="popup3" class="popup">
-  <div class="popup-content">
-    <button class="close-btn" onclick="closePopup('popup3')">✖</button>
-    <img src="bts.png">
-    <div class="info">
-      <p class="edit">🔴 아래 내용 직접 작성하세요</p>
-      <b>한국어</b><br>행사 이름 : 하하 호호<br>날짜 : 언젠가<br>장소 : 서울 어딘가<br>가는 방법 : 택시<br>설명 : 가보면 알아요<br><br>
-      <b>English</b><br>Event Name : DSDA<br>Date : DDDDD<br>Location : SSSSS<br>How to get there : SSSSS<br>Description : AAAAA<br><br>
-      <b>日本語</b><br>イベント名 : DDDD<br>日付 : DDDD<br>場所 : DDDD<br>行き方 : DDDD<br>説明 : DDDD<br><br>
-      <button class="qrbtn" onclick="openQR('qr3')">📍 MAP QR</button>
-    </div>
-  </div>
+
+<div class="popup-content">
+
+<button class="close-btn" onclick="closePopup('popup3')">✖</button>
+
+<img src="bts.png">
+
+<div class="info">
+
+<b>한국어</b><br>
+행사 이름 : 하하 호호<br>
+날짜 : 언젠가<br>
+장소 : 서울 어딘가<br>
+가는 방법 : 택시<br>
+설명 : 가보면 알아요<br><br>
+
+<b>English</b><br>
+Event Name : DDDD<br>
+Date : DDDD<br>
+Location : DDDD<br>
+How to get there : DDDD<br>
+Description : DDDD<br><br>
+
+<b>日本語</b><br>
+イベント名 : DDDD<br>
+日付 : DDDD<br>
+場所 : DDDD<br>
+行き方 : DDDD<br>
+説明 : DDDD<br><br>
+
+<button class="qrbtn" onclick="openQR('qr3')">📍 MAP QR</button>
+
+</div>
+</div>
 </div>
 
-<!-- QR POPUPS -->
+
+<!-- QR -->
+
 <div id="qr1" class="qr-popup">
-  <div class="qr-box">
-    <img src="beautyqr.png">
-    <p>Scan QR for map</p>
-  </div>
+
+<div class="qr-box">
+
+<img src="beautyqr.png">
+
+<p>Scan QR for map</p>
+
 </div>
+
+</div>
+
+
 <div id="qr2" class="qr-popup">
-  <div class="qr-box">
-    <img src="sojuqr.png">
-    <p>Scan QR for map</p>
-  </div>
+
+<div class="qr-box">
+
+<img src="sojuqr.png">
+
+<p>Scan QR for map</p>
+
 </div>
+
+</div>
+
+
 <div id="qr3" class="qr-popup">
-  <div class="qr-box">
-    <img src="btsqr.png">
-    <p>Scan QR for map</p>
-  </div>
+
+<div class="qr-box">
+
+<img src="btsqr.png">
+
+<p>Scan QR for map</p>
+
 </div>
+
+</div>
+
 
 <script>
-// ====================================
-// 팝업/QR 제어
-// ====================================
+
+/* =========================
+팝업
+========================= */
+
+function openPopup(id){
+
+document.querySelectorAll(".popup").forEach(p=>p.style.display="none");
+
+document.getElementById(id).style.display="flex";
+
+resetTimer();
+
+}
+
+function closePopup(id){
+
+document.getElementById(id).style.display="none";
+
+resetTimer();
+
+}
+
+/* =========================
+QR
+========================= */
+
+function openQR(id){
+
+document.querySelectorAll(".qr-popup").forEach(p=>p.style.display="none");
+
+document.getElementById(id).style.display="flex";
+
+resetTimer();
+
+}
+
+function closeQR(id){
+
+document.getElementById(id).style.display="none";
+
+resetTimer();
+
+}
+
+/* =========================
+30초 자동 초기화
+========================= */
+
 let idleTime=0;
 let idleLimit=30;
 
-function openPopup(id){
-  document.querySelectorAll(".popup").forEach(p=>p.style.display="none");
-  const popup = document.getElementById(id);
-  popup.style.display="flex";
-  popup.onclick = function(e){
-    if(e.target === popup){ closePopup(id); }
-  }
-  resetTimer();
+function timerIncrement(){
+
+idleTime++;
+
+if(idleTime>=idleLimit){
+
+resetScreen();
+
 }
 
-function closePopup(id){ 
-  document.getElementById(id).style.display="none"; 
-  resetTimer(); 
 }
 
-function openQR(id){
-  document.querySelectorAll(".qr-popup").forEach(q=>q.style.display="none");
-  const popup = document.getElementById(id);
-  popup.style.display="flex";
-  popup.onclick = function(e){
-    if(e.target === popup){ closeQR(id); }
-  }
-  resetTimer();
-}
-
-function closeQR(id){ 
-  document.getElementById(id).style.display="none"; 
-  resetTimer(); 
-}
-
-function timerIncrement(){ idleTime++; if(idleTime>=idleLimit){ resetScreen(); } }
 function resetScreen(){
-  document.querySelectorAll(".popup").forEach(p=>p.style.display="none");
-  document.querySelectorAll(".qr-popup").forEach(q=>q.style.display="none");
+
+document.querySelectorAll(".popup").forEach(p=>p.style.display="none");
+
+document.querySelectorAll(".qr-popup").forEach(p=>p.style.display="none");
+
 }
-function resetTimer(){ idleTime=0; }
+
+function resetTimer(){
+
+idleTime=0;
+
+}
 
 document.addEventListener("mousemove",resetTimer);
+
 document.addEventListener("click",resetTimer);
+
 document.addEventListener("touchstart",resetTimer);
+
 setInterval(timerIncrement,1000);
 
-// ====================================
-// 첫 터치/클릭 시 자동 전체화면
-// ====================================
-function enableFullscreenOnce() {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen().catch(() => {});
-  }
-  document.removeEventListener("click", enableFullscreenOnce);
-  document.removeEventListener("touchstart", enableFullscreenOnce);
+
+/* =========================
+첫 터치 전체화면
+========================= */
+
+function enableFullscreenOnce(){
+
+if(!document.fullscreenElement){
+
+document.documentElement.requestFullscreen().catch(()=>{});
+
 }
 
-document.addEventListener("click", enableFullscreenOnce);
-document.addEventListener("touchstart", enableFullscreenOnce);
+document.removeEventListener("click",enableFullscreenOnce);
+
+document.removeEventListener("touchstart",enableFullscreenOnce);
+
+}
+
+document.addEventListener("click",enableFullscreenOnce);
+
+document.addEventListener("touchstart",enableFullscreenOnce);
+
 </script>
 
 </body>
