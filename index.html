@@ -7,13 +7,13 @@
 <title>Events & Exhibitions</title>
 
 <style>
-/* 전체 화면, 스크롤 제거 */
+/* 전체 화면 */
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  overflow: hidden; /* 데스크탑용 스크롤 막기 */
   font-family: Arial, sans-serif;
   background:
     linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
@@ -22,6 +22,7 @@ html, body {
   background-position: center;
   background-attachment: fixed;
   text-align: center;
+  min-height: 100vh;
 }
 
 h1{
@@ -162,6 +163,9 @@ h1{
 
 /* 모바일 대응 */
 @media screen and (max-width:768px){
+  html, body {
+    overflow: auto; /* 모바일에서는 스크롤 허용 */
+  }
   .popup-content{
     flex-direction:column;
     align-items:center;
@@ -238,7 +242,7 @@ h1{
   </div>
 </div>
 
-<!-- QR POPUPS (X 버튼 없음) -->
+<!-- QR POPUPS -->
 <div id="qr1" class="qr-popup">
   <div class="qr-box">
     <img src="beautyqr.png">
@@ -308,7 +312,7 @@ document.addEventListener("touchstart",resetTimer);
 setInterval(timerIncrement,1000);
 
 // ====================================
-// 첫 터치/클릭 시 자동 전체화면 (모바일/태블릿/모니터 대응)
+// 첫 터치/클릭 시 자동 전체화면
 // ====================================
 function enableFullscreenOnce() {
   if (!document.fullscreenElement) {
@@ -324,3 +328,4 @@ document.addEventListener("touchstart", enableFullscreenOnce);
 
 </body>
 </html>
+
