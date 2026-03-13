@@ -8,18 +8,18 @@
 
 <style>
 
-/* 기본 화면 */
+/* 기본 */
 
-html, body{
+html,body{
 margin:0;
 padding:0;
 width:100%;
 min-height:100vh;
 overflow-x:hidden;
-font-family:Arial, sans-serif;
+font-family:Arial,sans-serif;
 
 background:
-linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.35)),
 url("background.jpg");
 
 background-size:cover;
@@ -47,12 +47,18 @@ margin-top:4vh;
 }
 
 .thumbnail{
-width:320px;
-height:320px;
+
+width:340px;
+height:340px;
+
 object-fit:cover;
+
 border-radius:15px;
+
 cursor:pointer;
+
 transition:0.3s;
+
 box-shadow:0 8px 25px rgba(0,0,0,0.3);
 }
 
@@ -87,7 +93,7 @@ overflow-y:auto;
 
 }
 
-/* 팝업 콘텐츠 */
+/* 팝업 애니메이션 */
 
 .popup-content{
 
@@ -110,6 +116,28 @@ align-items:center;
 
 position:relative;
 
+/* animation */
+
+transform:scale(0.8);
+
+opacity:0;
+
+animation:popupZoom 0.35s ease forwards;
+
+}
+
+@keyframes popupZoom{
+
+from{
+transform:scale(0.8);
+opacity:0;
+}
+
+to{
+transform:scale(1);
+opacity:1;
+}
+
 }
 
 /* 이미지 */
@@ -131,26 +159,26 @@ object-fit:contain;
 
 .close-btn{
 
-position:fixed;
+position:absolute;
 
-top:20px;
-right:20px;
+top:15px;
+right:15px;
 
 border:none;
 
 background:transparent;
 
-font-size:2em;
+font-size:32px;
 
 cursor:pointer;
 
-color:white;
+color:#333;
 
-z-index:2000;
+z-index:10;
 
 }
 
-/* 정보 */
+/* 설명 */
 
 .info{
 
@@ -199,6 +227,12 @@ padding:30px;
 border-radius:15px;
 
 text-align:center;
+
+transform:scale(0.8);
+
+opacity:0;
+
+animation:popupZoom 0.35s ease forwards;
 
 }
 
@@ -268,13 +302,14 @@ font-size:15px;
 
 </div>
 
+
 <!-- POPUP 1 -->
 
 <div id="popup1" class="popup">
 
-<button class="close-btn" onclick="closePopup('popup1')">✖</button>
-
 <div class="popup-content">
+
+<button class="close-btn" onclick="closePopup('popup1')">✖</button>
 
 <img src="beauty.png">
 
@@ -313,34 +348,15 @@ Description : DDDD<br><br>
 
 <div id="popup2" class="popup">
 
-<button class="close-btn" onclick="closePopup('popup2')">✖</button>
-
 <div class="popup-content">
+
+<button class="close-btn" onclick="closePopup('popup2')">✖</button>
 
 <img src="soju.png">
 
 <div class="info">
 
-<b>한국어</b><br>
-행사 이름 : 하하 호호<br>
-날짜 : 언젠가<br>
-장소 : 서울 어딘가<br>
-가는 방법 : 택시<br>
-설명 : 가보면 알아요<br><br>
-
-<b>English</b><br>
-Event Name : DDDD<br>
-Date : DDDD<br>
-Location : DDDD<br>
-How to get there : DDDD<br>
-Description : DDDD<br><br>
-
-<b>日本語</b><br>
-イベント名 : DDDD<br>
-日付 : DDDD<br>
-場所 : DDDD<br>
-行き方 : DDDD<br>
-説明 : DDDD<br><br>
+내용 작성
 
 <button class="qrbtn" onclick="openQR('qr2')">📍 MAP QR</button>
 
@@ -354,34 +370,15 @@ Description : DDDD<br><br>
 
 <div id="popup3" class="popup">
 
-<button class="close-btn" onclick="closePopup('popup3')">✖</button>
-
 <div class="popup-content">
+
+<button class="close-btn" onclick="closePopup('popup3')">✖</button>
 
 <img src="bts.png">
 
 <div class="info">
 
-<b>한국어</b><br>
-행사 이름 : 하하 호호<br>
-날짜 : 언젠가<br>
-장소 : 서울 어딘가<br>
-가는 방법 : 택시<br>
-설명 : 가보면 알아요<br><br>
-
-<b>English</b><br>
-Event Name : DDDD<br>
-Date : DDDD<br>
-Location : DDDD<br>
-How to get there : DDDD<br>
-Description : DDDD<br><br>
-
-<b>日本語</b><br>
-イベント名 : DDDD<br>
-日付 : DDDD<br>
-場所 : DDDD<br>
-行き方 : DDDD<br>
-説明 : DDDD<br><br>
+내용 작성
 
 <button class="qrbtn" onclick="openQR('qr3')">📍 MAP QR</button>
 
@@ -398,33 +395,28 @@ Description : DDDD<br><br>
 <div class="qr-box">
 
 <img src="beautyqr.png">
-
 <p>Scan QR for map</p>
 
 </div>
 
 </div>
-
 
 <div id="qr2" class="qr-popup">
 
 <div class="qr-box">
 
 <img src="sojuqr.png">
-
 <p>Scan QR for map</p>
 
 </div>
 
 </div>
 
-
 <div id="qr3" class="qr-popup">
 
 <div class="qr-box">
 
 <img src="btsqr.png">
-
 <p>Scan QR for map</p>
 
 </div>
@@ -434,13 +426,13 @@ Description : DDDD<br><br>
 
 <script>
 
-/* 팝업 열기 */
+/* 팝업 */
 
 function openPopup(id){
 
 document.querySelectorAll(".popup").forEach(p=>p.style.display="none");
 
-const popup = document.getElementById(id);
+const popup=document.getElementById(id);
 
 popup.style.display="flex";
 
@@ -449,8 +441,6 @@ popup.scrollTop=0;
 resetTimer();
 
 }
-
-/* 팝업 닫기 */
 
 function closePopup(id){
 
@@ -506,7 +496,6 @@ popup.style.display="none";
 /* 자동 초기화 */
 
 let idleTime=0;
-
 let idleLimit=30;
 
 function timerIncrement(){
@@ -530,15 +519,11 @@ document.querySelectorAll(".qr-popup").forEach(p=>p.style.display="none");
 }
 
 function resetTimer(){
-
 idleTime=0;
-
 }
 
 document.addEventListener("mousemove",resetTimer);
-
 document.addEventListener("click",resetTimer);
-
 document.addEventListener("touchstart",resetTimer);
 
 setInterval(timerIncrement,1000);
@@ -555,13 +540,11 @@ document.documentElement.requestFullscreen().catch(()=>{});
 }
 
 document.removeEventListener("click",enableFullscreenOnce);
-
 document.removeEventListener("touchstart",enableFullscreenOnce);
 
 }
 
 document.addEventListener("click",enableFullscreenOnce);
-
 document.addEventListener("touchstart",enableFullscreenOnce);
 
 </script>
