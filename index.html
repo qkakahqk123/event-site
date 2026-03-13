@@ -96,6 +96,24 @@ h1{
   border-radius:10px;
 }
 
+/* X 버튼 */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  font-size: 1.8em;
+  cursor: pointer;
+  color: #333;
+  z-index: 10;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: red;
+}
+
 /* 정보 영역 */
 .info{
   flex:1 1 250px;
@@ -175,9 +193,10 @@ h1{
   <img src="bts.png" class="thumbnail" onclick="openPopup('popup3')">
 </div>
 
-<!-- BEAUTY -->
+<!-- 팝업: BEAUTY -->
 <div id="popup1" class="popup">
   <div class="popup-content">
+    <button class="close-btn" onclick="closePopup('popup1')">✖</button>
     <img src="beauty.png">
     <div class="info">
       <p class="edit">🔴 아래 내용 직접 작성하세요</p>
@@ -189,9 +208,10 @@ h1{
   </div>
 </div>
 
-<!-- SOJU -->
+<!-- 팝업: SOJU -->
 <div id="popup2" class="popup">
   <div class="popup-content">
+    <button class="close-btn" onclick="closePopup('popup2')">✖</button>
     <img src="soju.png">
     <div class="info">
       <p class="edit">🔴 아래 내용 직접 작성하세요</p>
@@ -203,9 +223,10 @@ h1{
   </div>
 </div>
 
-<!-- BTS -->
+<!-- 팝업: BTS -->
 <div id="popup3" class="popup">
   <div class="popup-content">
+    <button class="close-btn" onclick="closePopup('popup3')">✖</button>
     <img src="bts.png">
     <div class="info">
       <p class="edit">🔴 아래 내용 직접 작성하세요</p>
@@ -217,7 +238,7 @@ h1{
   </div>
 </div>
 
-<!-- QR POPUPS -->
+<!-- QR POPUPS (X 버튼 없음) -->
 <div id="qr1" class="qr-popup">
   <div class="qr-box">
     <img src="beautyqr.png">
@@ -253,7 +274,11 @@ function openPopup(id){
   }
   resetTimer();
 }
-function closePopup(id){ document.getElementById(id).style.display="none"; resetTimer(); }
+
+function closePopup(id){ 
+  document.getElementById(id).style.display="none"; 
+  resetTimer(); 
+}
 
 function openQR(id){
   document.querySelectorAll(".qr-popup").forEach(q=>q.style.display="none");
@@ -264,7 +289,11 @@ function openQR(id){
   }
   resetTimer();
 }
-function closeQR(id){ document.getElementById(id).style.display="none"; resetTimer(); }
+
+function closeQR(id){ 
+  document.getElementById(id).style.display="none"; 
+  resetTimer(); 
+}
 
 function timerIncrement(){ idleTime++; if(idleTime>=idleLimit){ resetScreen(); } }
 function resetScreen(){
