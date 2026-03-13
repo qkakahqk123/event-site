@@ -7,16 +7,21 @@
 <title>Events & Exhibitions</title>
 
 <style>
-body{
-  margin:0;
-  font-family:Arial;
+/* 전체 화면, 스크롤 제거 */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
   background:
     linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
     url("background.jpg");
-  background-size:cover;
-  background-position:center;
-  background-attachment:fixed;
-  text-align:center;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  text-align: center;
 }
 
 h1{
@@ -28,7 +33,7 @@ h1{
   max-font-size:50px;
 }
 
-/* 갤러리 썸네일 (고정 320px) */
+/* 갤러리 썸네일 */
 .gallery{
   display:flex;
   justify-content:center;
@@ -53,7 +58,7 @@ h1{
 
 /* 팝업 전체 */
 .popup, .qr-popup {
-  display: none; /* 기본 숨김 */
+  display: none; 
   position: fixed;
   top:0;
   left:0;
@@ -82,7 +87,6 @@ h1{
   position:relative;
 }
 
-/* 팝업 이미지 (3:4 비율, 통일) */
 .popup-content img{
   width:40%;
   max-width:400px;
@@ -120,7 +124,7 @@ h1{
 /* QR 박스 */
 .qr-box{
   background:white;
-  padding:2em 2em 3em 2em; /* 아래쪽 padding 넓힘 */
+  padding:2em 2em 3em 2em; 
   border-radius:15px;
   text-align:center;
   position:relative;
@@ -130,7 +134,7 @@ h1{
   width:50vw;
   max-width:300px;
   height:auto;
-  margin-top:1em; /* 버튼과 이미지 간격 확보 */
+  margin-top:1em;
 }
 
 .edit{
@@ -162,6 +166,7 @@ h1{
 </head>
 
 <body>
+
 <h1>전시 및 이벤트</h1>
 
 <div class="gallery">
@@ -219,14 +224,12 @@ h1{
     <p>Scan QR for map</p>
   </div>
 </div>
-
 <div id="qr2" class="qr-popup">
   <div class="qr-box">
     <img src="sojuqr.png">
     <p>Scan QR for map</p>
   </div>
 </div>
-
 <div id="qr3" class="qr-popup">
   <div class="qr-box">
     <img src="btsqr.png">
@@ -235,49 +238,59 @@ h1{
 </div>
 
 <script>
+// ====================================
+// 팝업/QR 기존 제어
+// ====================================
 let idleTime=0;
 let idleLimit=30;
 
-// 팝업 열기 (한 번에 하나만, 배경 클릭 시 닫기)
 function openPopup(id){
   document.querySelectorAll(".popup").forEach(p=>p.style.display="none");
   const popup = document.getElementById(id);
   popup.style.display="flex";
-
   popup.onclick = function(e){
     if(e.target === popup){ closePopup(id); }
   }
   resetTimer();
 }
-
 function closePopup(id){ document.getElementById(id).style.display="none"; resetTimer(); }
 
 function openQR(id){
   document.querySelectorAll(".qr-popup").forEach(q=>q.style.display="none");
   const popup = document.getElementById(id);
   popup.style.display="flex";
-
   popup.onclick = function(e){
     if(e.target === popup){ closeQR(id); }
   }
   resetTimer();
 }
-
 function closeQR(id){ document.getElementById(id).style.display="none"; resetTimer(); }
 
 function timerIncrement(){ idleTime++; if(idleTime>=idleLimit){ resetScreen(); } }
-
 function resetScreen(){
   document.querySelectorAll(".popup").forEach(p=>p.style.display="none");
   document.querySelectorAll(".qr-popup").forEach(q=>q.style.display="none");
 }
-
 function resetTimer(){ idleTime=0; }
 
 document.addEventListener("mousemove",resetTimer);
 document.addEventListener("click",resetTimer);
 document.addEventListener("touchstart",resetTimer);
 setInterval(timerIncrement,1000);
+
+// ====================================
+// 첫 터치/클릭 시 자동 전체화면 (모바일/태블릿/모니터 대응)
+// ====================================
+function enableFullscreenOnce() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  }
+  document.removeEventListener("click", enableFullscreenOnce);
+  document.removeEventListener("touchstart", enableFullscreenOnce);
+}
+
+document.addEventListener("click", enableFullscreenOnce);
+document.addEventListener("touchstart", enableFullscreenOnce);
 </script>
 
 </body>
