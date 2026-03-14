@@ -21,20 +21,19 @@ html, body {
 }
 
 /* ================= 제목 ================= */
-/* ⭐ 수정: h1 최소 높이 추가 → 언어 변경 시 썸네일 위치 고정 */
 h1 {
   color: white;
   font-size: 4vw;
   margin-top: 40px;
   text-shadow: 0 3px 10px rgba(0,0,0,0.6);
 
-  height: 100px;          /* ⭐ 높이 완전히 고정 */
-  display: flex;          /* ⭐ 텍스트 가운데 정렬 */
+  height: 100px;
+  display: flex;
   align-items: center;    
   justify-content: center;
 }
 
-/* ================= 언어 선택 국기 ================= */
+/* ================= 언어 선택 ================= */
 .lang-bar {
   position: fixed;
   top: 20px;
@@ -48,7 +47,7 @@ h1 {
   cursor: pointer;
 }
 
-/* ================= 갤러리 썸네일 ================= */
+/* ================= 갤러리 ================= */
 .gallery {
   display: flex;
   justify-content: center;
@@ -79,7 +78,16 @@ h1 {
   justify-content: center;
   align-items: center;
   z-index: 1000;
+
+  opacity:0; /* ⭐ 추가 */
+  transition:opacity 0.35s ease; /* ⭐ 추가 */
 }
+
+.popup.show, .qr-popup.show{
+  opacity:1; /* ⭐ 추가 */
+}
+
+/* ⭐ 팝업 애니메이션 */
 .popup-content {
   background: white;
   width: 90%;
@@ -89,10 +97,19 @@ h1 {
   display: flex;
   gap: 30px;
   position: relative;
+
+  transform:scale(0.85); /* ⭐ 추가 */
+  transition:transform 0.35s ease; /* ⭐ 추가 */
 }
+
+.popup.show .popup-content{
+  transform:scale(1); /* ⭐ 추가 */
+}
+
 .popup-content img {
-  width: 40%; /* ⭐ 팝업1 크기 2,3과 동일 */
+  width: 40%;
 }
+
 .close-btn {
   position: absolute;
   top: 15px; right: 20px;
@@ -101,16 +118,19 @@ h1 {
   background: none;
   cursor: pointer;
 }
+
 .info {
   flex: 1;
   text-align: left;
   line-height: 1.7;
 }
+
 .action-buttons {
   margin-top: 20px;
   display: flex;
   gap: 15px;
 }
+
 .action-buttons button {
   padding: 12px 20px;
   border: none;
@@ -119,6 +139,7 @@ h1 {
   color: white;
   cursor: pointer;
 }
+
 .lang { display: none; }
 
 /* ================= QR ================= */
@@ -129,14 +150,21 @@ h1 {
   position: relative;
   text-align: center;
 }
+
 .qr-box img { width: 300px; }
-.qr-close { position: absolute; top: 10px; right: 15px; font-size: 25px; cursor: pointer; }
+
+.qr-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 25px;
+  cursor: pointer;
+}
 </style>
 </head>
 
 <body>
 
-<!-- ================= 언어 선택 ================= -->
 <div class="lang-bar">
   <img src="us.png" class="flag" onclick="setLang('en')">
   <img src="jp.png" class="flag" onclick="setLang('jp')">
@@ -145,134 +173,185 @@ h1 {
 
 <h1>Events & Exhibitions</h1>
 
-<!-- ================= 썸네일 ================= -->
 <div class="gallery">
   <img src="beauty.png" class="thumbnail" onclick="openPopup('popup1')">
   <img src="soju.png" class="thumbnail" onclick="openPopup('popup2')">
   <img src="bts.png" class="thumbnail" onclick="openPopup('popup3')">
 </div>
 
-<!-- ================= EVENT 1 ================= -->
+<!-- EVENT 1 -->
 <div id="popup1" class="popup">
-  <div class="popup-content">
-    <button class="close-btn" onclick="closePopup('popup1')">✖</button>
-    <img src="beauty.png">
-    <div class="info">
-      <div class="lang en"><b>Event Name</b><br>Beauty Expo<br>Date: May 20<br>Location: COEX</div>
-      <div class="lang jp"><b>イベント名</b><br>ビューティー展示会<br>日付: 5月20日<br>場所: COEX</div>
-      <div class="lang cn"><b>活动名称</b><br>美容展览<br>日期: 5月20日<br>地点: COEX</div>
-      <div class="action-buttons">
-        <button onclick="openMapPopup('COEX Seoul')">📍 MAP</button>
-        <button onclick="openQR('qr1')">📱 QR</button>
-      </div>
-    </div>
-  </div>
+<div class="popup-content">
+<button class="close-btn" onclick="closePopup('popup1')">✖</button>
+<img src="beauty.png">
+<div class="info">
+<div class="lang en"><b>Event Name</b><br>Beauty Expo<br>Date: May 20<br>Location: COEX</div>
+<div class="lang jp"><b>イベント名</b><br>ビューティー展示会<br>日付: 5月20日<br>場所: COEX</div>
+<div class="lang cn"><b>活动名称</b><br>美容展览<br>日期: 5月20日<br>地点: COEX</div>
+<div class="action-buttons">
+<button onclick="openMapPopup('COEX Seoul')">📍 MAP</button>
+<button onclick="openQR('qr1')">📱 QR</button>
+</div>
+</div>
+</div>
 </div>
 
-<!-- ================= EVENT 2 ================= -->
+<!-- EVENT 2 -->
 <div id="popup2" class="popup">
-  <div class="popup-content">
-    <button class="close-btn" onclick="closePopup('popup2')">✖</button>
-    <img src="soju.png">
-    <div class="info">
-      <div class="lang en">Soju Festival<br>Date: June 15<br>Location: Seoul</div>
-      <div class="lang jp">焼酎フェスティバル<br>日付: 6月15日<br>場所: ソウル</div>
-      <div class="lang cn">烧酒节<br>日期: 6月15日<br>地点: 首尔</div>
-      <div class="action-buttons">
-        <button onclick="openMapPopup('Seoul')">📍 MAP</button>
-        <button onclick="openQR('qr2')">📱 QR</button>
-      </div>
-    </div>
-  </div>
+<div class="popup-content">
+<button class="close-btn" onclick="closePopup('popup2')">✖</button>
+<img src="soju.png">
+<div class="info">
+<div class="lang en">Soju Festival<br>Date: June 15<br>Location: Seoul</div>
+<div class="lang jp">焼酎フェスティバル<br>日付: 6月15日<br>場所: ソウル</div>
+<div class="lang cn">烧酒节<br>日期: 6月15日<br>地点: 首尔</div>
+<div class="action-buttons">
+<button onclick="openMapPopup('Seoul')">📍 MAP</button>
+<button onclick="openQR('qr2')">📱 QR</button>
+</div>
+</div>
+</div>
 </div>
 
-<!-- ================= EVENT 3 ================= -->
+<!-- EVENT 3 -->
 <div id="popup3" class="popup">
-  <div class="popup-content">
-    <button class="close-btn" onclick="closePopup('popup3')">✖</button>
-    <img src="bts.png">
-    <div class="info">
-      <div class="lang en">BTS Exhibition<br>Date: July 10<br>Location: Seoul</div>
-      <div class="lang jp">BTS 展示会<br>日付: 7月10日<br>場所: ソウル</div>
-      <div class="lang cn">BTS 展览<br>日期: 7月10日<br>地点: 首尔</div>
-      <div class="action-buttons">
-        <button onclick="openMapPopup('Seoul')">📍 MAP</button>
-        <button onclick="openQR('qr3')">📱 QR</button>
-      </div>
-    </div>
-  </div>
+<div class="popup-content">
+<button class="close-btn" onclick="closePopup('popup3')">✖</button>
+<img src="bts.png">
+<div class="info">
+<div class="lang en">BTS Exhibition<br>Date: July 10<br>Location: Seoul</div>
+<div class="lang jp">BTS 展示会<br>日付: 7月10日<br>場所: ソウル</div>
+<div class="lang cn">BTS 展览<br>日期: 7月10日<br>地点: 首尔</div>
+<div class="action-buttons">
+<button onclick="openMapPopup('Seoul')">📍 MAP</button>
+<button onclick="openQR('qr3')">📱 QR</button>
+</div>
+</div>
+</div>
 </div>
 
-<!-- ================= QR ================= -->
+<!-- QR -->
 <div id="qr1" class="qr-popup"><div class="qr-box"><div class="qr-close" onclick="closeQR('qr1')">✖</div><img src="beautyqr.png"></div></div>
 <div id="qr2" class="qr-popup"><div class="qr-box"><div class="qr-close" onclick="closeQR('qr2')">✖</div><img src="sojuqr.png"></div></div>
 <div id="qr3" class="qr-popup"><div class="qr-box"><div class="qr-close" onclick="closeQR('qr3')">✖</div><img src="btsqr.png"></div></div>
 
-<!-- ================= MAP 팝업 ================= -->
+<!-- MAP -->
 <div id="mapPopup" class="popup">
-  <div class="popup-content" style="flex-direction:column; max-width:900px;">
-    <button class="close-btn" onclick="closeMap()">✖</button>
-    <iframe id="mapFrame" width="100%" height="500" style="border:0;border-radius:10px;" allowfullscreen></iframe> <!-- ⭐ allowfullscreen 추가 -->
-  </div>
+<div class="popup-content" style="flex-direction:column; max-width:900px;">
+<button class="close-btn" onclick="closeMap()">✖</button>
+<iframe id="mapFrame" width="100%" height="500" style="border:0;border-radius:10px;" allowfullscreen></iframe>
+</div>
 </div>
 
 <script>
-// ================= 글로벌 변수 =================
-let currentLang = "en";
 
-// ⭐ 제목 텍스트 다국어
-const titleEl = document.querySelector("h1");
-const titles = {
-  en: "Events & Exhibitions",
-  jp: "イベント＆展示会",
-  cn: "活动与展览"
+let currentLang="en";
+
+const titleEl=document.querySelector("h1");
+const titles={
+en:"Events & Exhibitions",
+jp:"イベント＆展示会",
+cn:"活动与展览"
 };
 
-// ================= 언어 선택 =================
 function setLang(lang){
-  currentLang = lang;
-  document.querySelectorAll(".lang").forEach(el => el.style.display="none");
-  document.querySelectorAll("." + lang).forEach(el => el.style.display="block");
-  titleEl.textContent = titles[lang]; // ⭐ 제목 변경
+currentLang=lang;
+document.querySelectorAll(".lang").forEach(el=>el.style.display="none");
+document.querySelectorAll("."+lang).forEach(el=>el.style.display="block");
+titleEl.textContent=titles[lang];
 }
 
-// ================= 팝업 =================
+/* ⭐ 애니메이션 팝업 열기 */
 function openPopup(id){
-  document.querySelectorAll(".popup").forEach(p => p.style.display="none");
-  document.getElementById(id).style.display = "flex";
-  resetTimer();
+document.querySelectorAll(".popup").forEach(p=>{
+p.style.display="none";
+p.classList.remove("show");
+});
+
+let popup=document.getElementById(id);
+popup.style.display="flex";
+
+setTimeout(()=>{
+popup.classList.add("show");
+},10);
+
+resetTimer();
 }
-function closePopup(id){ document.getElementById(id).style.display="none"; }
 
-// ================= QR =================
-function openQR(id){ document.getElementById(id).style.display="flex"; }
-function closeQR(id){ document.getElementById(id).style.display="none"; }
+/* ⭐ 애니메이션 팝업 닫기 */
+function closePopup(id){
+let popup=document.getElementById(id);
+popup.classList.remove("show");
 
-// ================= MAP =================
+setTimeout(()=>{
+popup.style.display="none";
+},300);
+}
+
+function openQR(id){
+let qr=document.getElementById(id);
+qr.style.display="flex";
+setTimeout(()=>qr.classList.add("show"),10);
+}
+
+function closeQR(id){
+let qr=document.getElementById(id);
+qr.classList.remove("show");
+setTimeout(()=>qr.style.display="none",300);
+}
+
 function openMapPopup(place){
-  let mapUrl = "https://www.google.com/maps?q=" + encodeURIComponent(place) + "&output=embed";
-  document.getElementById("mapFrame").src = mapUrl;
-  document.getElementById("mapPopup").style.display = "flex";
-}
-function closeMap(){ document.getElementById("mapPopup").style.display="none"; }
+let mapUrl="https://www.google.com/maps?q="+encodeURIComponent(place)+"&output=embed";
+document.getElementById("mapFrame").src=mapUrl;
 
-// ================= 30초 무작동 자동 초기화 =================
-let idleTime = 0;
-function timerIncrement(){ idleTime++; if(idleTime>30){ resetScreen(); } }
-function resetTimer(){ idleTime = 0; }
+let popup=document.getElementById("mapPopup");
+popup.style.display="flex";
+setTimeout(()=>popup.classList.add("show"),10);
+}
+
+function closeMap(){
+let popup=document.getElementById("mapPopup");
+popup.classList.remove("show");
+setTimeout(()=>popup.style.display="none",300);
+}
+
+/* 자동 리셋 */
+let idleTime=0;
+function timerIncrement(){idleTime++;if(idleTime>30){resetScreen();}}
+function resetTimer(){idleTime=0;}
+
 function resetScreen(){
-  document.querySelectorAll(".popup").forEach(p => p.style.display="none");
-  document.querySelectorAll(".qr-popup").forEach(p => p.style.display="none");
-  document.getElementById("mapPopup").style.display="none";
-  setLang("en");
+document.querySelectorAll(".popup").forEach(p=>{p.style.display="none";p.classList.remove("show");});
+document.querySelectorAll(".qr-popup").forEach(p=>{p.style.display="none";p.classList.remove("show");});
+setLang("en");
 }
-document.addEventListener("mousemove", resetTimer);
-document.addEventListener("click", resetTimer);
-document.addEventListener("touchstart", resetTimer);
-setInterval(timerIncrement, 1000);
 
-// ================= 초기 언어 =================
-window.onload = function(){ setLang("en"); }
+document.addEventListener("mousemove",resetTimer);
+document.addEventListener("click",resetTimer);
+document.addEventListener("touchstart",resetTimer);
+setInterval(timerIncrement,1000);
+
+window.onload=function(){setLang("en");}
+
+/* ⭐ 바깥 클릭 닫기 */
+document.querySelectorAll(".popup").forEach(popup=>{
+popup.addEventListener("click",function(e){
+if(e.target===popup){
+popup.classList.remove("show");
+setTimeout(()=>popup.style.display="none",300);
+}
+});
+});
+
+document.querySelectorAll(".qr-popup").forEach(popup=>{
+popup.addEventListener("click",function(e){
+if(e.target===popup){
+popup.classList.remove("show");
+setTimeout(()=>popup.style.display="none",300);
+}
+});
+});
+
 </script>
 
 </body>
