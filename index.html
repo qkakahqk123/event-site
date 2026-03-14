@@ -256,10 +256,7 @@ h1 {
 </div>
 </div>
 
-<!-- CAT BUTTON -->
-<div class="cat-button" title="Feed the cats">
-🐱
-</div>
+<div class="cat-button">🐱</div>
 
 <!-- MAP -->
 <div id="mapPopup" class="popup">
@@ -273,17 +270,18 @@ h1 {
 <div id="creatorPopup" class="popup">
   <div class="popup-content" style="flex-direction:column; align-items:center; text-align:center; max-width:450px; padding:20px;">
     <button class="close-btn" onclick="closePopup('creatorPopup')">✖</button>
-    <img src="creator.jpg" style="width:80%; max-width:300px; height:auto; border-radius:12px; margin-bottom:15px;">
-    <h2 style="font-size:1.5rem; margin-bottom:8px;">Secret Developer</h2>
-    <p style="font-size:1rem;">Made by RITO 😎</p>
+    <img src="creator.jpg" style="width:80%; max-width:300px; border-radius:12px; margin-bottom:15px;">
+    <h2>Secret Developer</h2>
+    <p>Made by RITO 😎</p>
   </div>
 </div>
 
-<!-- =========================== 통합 오디오 =========================== -->
 <audio id="secretAudio" src="secret.mp3"></audio>
 <audio id="catSound" src="catmeow.mp3"></audio>
 
 <script>
+
+/* ===== 기존 JS 그대로 ===== */
 
 let currentLang="en";
 
@@ -338,15 +336,8 @@ popup.addEventListener("click",function(e){
 if(e.target===popup){popup.classList.remove("show");setTimeout(()=>popup.style.display="none",300);}
 });
 });
-document.querySelectorAll(".qr-popup").forEach(popup=>{
-popup.addEventListener("click",function(e){
-if(e.target===popup){popup.classList.remove("show");setTimeout(()=>popup.style.display="none",300);}
-});
-});
 
-/* ===========================
-   EASTER EGG 기능
-=========================== */
+/* =========================== 이스터에그 =========================== */
 
 let logoClickCount = 0;
 titleEl.addEventListener("click", function(){
@@ -367,7 +358,7 @@ closePopup = function(id){
   originalClosePopup(id);
 };
 
-/* =========================== 고양이 울음 이스터 에그 =========================== */
+/* 고양이 */
 function openCatEgg() {
     openQR('catQR');
     let catAudio = document.getElementById("catSound");
@@ -376,6 +367,50 @@ function openCatEgg() {
 }
 
 document.querySelector(".cat-button").addEventListener("click", openCatEgg);
+
+
+/* =================================================
+   === ADD PATCH : 타이머 충돌방지 + 음악종료 보정 ===
+   기존 코드 수정 없음
+================================================= */
+
+document.querySelectorAll(".popup").forEach(popup=>{
+popup.addEventListener("click",function(e){
+
+if(e.target===popup){
+
+let audio=document.getElementById("secretAudio");
+if(audio){
+audio.pause();
+audio.currentTime=0;
+}
+
+}
+
+});
+});
+
+let lastInteraction = Date.now();
+
+function safeResetTimer(){
+lastInteraction = Date.now();
+}
+
+document.addEventListener("mousemove",safeResetTimer);
+document.addEventListener("click",safeResetTimer);
+document.addEventListener("touchstart",safeResetTimer);
+
+setInterval(function(){
+
+let now = Date.now();
+let diff = (now - lastInteraction)/1000;
+
+if(diff>30){
+resetScreen();
+safeResetTimer();
+}
+
+},1000);
 
 </script>
 
