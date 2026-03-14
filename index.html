@@ -1,394 +1,429 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Events & Exhibitions</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events & Exhibitions</title>
 
-  <style>
-    /* ===== 기본 스타일 ===== */
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      min-height: 100vh;
-      font-family: Arial;
-      background: linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.35)), url("background.jpg");
-      background-size: cover;
-      background-position: center;
-      text-align: center;
-      overflow-x: hidden;
-    }
+<style>
+html, body {
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100vh;
+  font-family:Arial;
+  background:linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.35)),url("background.jpg");
+  background-size:cover;
+  background-position:center;
+  text-align:center;
+  overflow-x:hidden;
+}
 
-    h1 {
-      color: white;
-      font-size: 4vw;
-      margin-top: 40px;
-      text-shadow: 0 3px 10px rgba(0,0,0,0.6);
-    }
+h1{
+  color:white;
+  font-size:4vw;
+  margin-top:40px;
+  text-shadow:0 3px 10px rgba(0,0,0,0.6);
+}
 
-    /* ===== 언어 선택 국기 ===== */
-    .lang-bar {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      display: flex;
-      gap: 10px;
-      z-index: 2000;
-    }
+/* 언어 선택 */
+.lang-bar{
+  position:fixed;
+  top:20px;
+  right:20px;
+  display:flex;
+  gap:10px;
+  z-index:2000;
+}
 
-    .flag {
-      width: 45px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
+.flag{
+  width:45px;
+  cursor:pointer;
+  border-radius:4px;
+}
 
-    /* ===== 갤러리 썸네일 ===== */
-    .gallery {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 40px;
-      margin-top: 50px;
-      max-width: 1400px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+/* 갤러리 */
+.gallery{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:40px;
+  margin-top:50px;
+  max-width:1400px;
+  margin-left:auto;
+  margin-right:auto;
+}
 
-    .thumbnail {
-      width: 330px;
-      height: 330px;
-      object-fit: cover;
-      border-radius: 15px;
-      cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-    }
+.thumbnail{
+  width:330px;
+  height:330px;
+  object-fit:cover;
+  border-radius:15px;
+  cursor:pointer;
+  transition:0.3s;
+  box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
 
-    .thumbnail:hover {
-      transform: scale(1.05);
-    }
+.thumbnail:hover{
+  transform:scale(1.05);
+}
 
-    .highlight {
-      transform: scale(1.12);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-    }
+.highlight{
+  transform:scale(1.12);
+  box-shadow:0 20px 40px rgba(0,0,0,0.6);
+}
 
-    /* ===== 팝업 ===== */
-    .popup, .qr-popup {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.8);
-      justify-content: center;
-      align-items: flex-start;
-      padding-top: 60px;
-      z-index: 1000;
-      overflow: auto;
-    }
+/* 팝업 */
+.popup,.qr-popup{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.8);
+  justify-content:center;
+  align-items:flex-start;
+  padding-top:60px;
+  z-index:1000;
+  overflow:auto;
+}
 
-    .popup-content {
-      background: white;
-      width: 90%;
-      max-width: 1000px;
-      padding: 30px;
-      border-radius: 15px;
-      display: flex;
-      gap: 30px;
-      align-items: center;
-      position: relative;
-      transform: scale(0.8);
-      opacity: 0;
-      animation: popup 0.35s forwards;
-    }
+.popup-content{
+  background:white;
+  width:90%;
+  max-width:1000px;
+  padding:30px;
+  border-radius:15px;
+  display:flex;
+  gap:30px;
+  align-items:center;
+  position:relative;
+  transform:scale(0.8);
+  opacity:0;
+  animation:popup 0.35s forwards;
+}
 
-    @keyframes popup {
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
+@keyframes popup{
+  to{
+    transform:scale(1);
+    opacity:1;
+  }
+}
 
-    .popup-content img {
-      width: 40%;
-      border-radius: 10px;
-    }
+.popup-content img{
+  width:40%;
+  border-radius:10px;
+}
 
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      font-size: 30px;
-      border: none;
-      background: none;
-      cursor: pointer;
-    }
+.close-btn{
+  position:absolute;
+  top:15px;
+  right:20px;
+  font-size:30px;
+  border:none;
+  background:none;
+  cursor:pointer;
+}
 
-    .info {
-      flex: 1;
-      text-align: left;
-      line-height: 1.7;
-    }
+.info{
+  flex:1;
+  text-align:left;
+  line-height:1.7;
+}
 
-    .action-buttons {
-      margin-top: 20px;
-      display: flex;
-      gap: 15px;
-    }
+.action-buttons{
+  margin-top:20px;
+  display:flex;
+  gap:15px;
+}
 
-    .action-buttons button {
-      padding: 12px 20px;
-      border: none;
-      border-radius: 10px;
-      background: #222;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
+.action-buttons button{
+  padding:12px 20px;
+  border:none;
+  border-radius:10px;
+  background:#222;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
 
-    button:active {
-      transform: scale(0.95);
-    }
+.lang{display:none}
 
-    .lang { display: none; }
+/* QR */
+.qr-box{
+  background:white;
+  padding:30px;
+  border-radius:15px;
+  text-align:center;
+  position:relative;
+}
 
-    /* ===== QR ===== */
-    .qr-box {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      text-align: center;
-      position: relative;
-    }
+.qr-box img{
+  width:300px;
+}
 
-    .qr-box img {
-      width: 300px;
-    }
-
-    .qr-close {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 25px;
-      cursor: pointer;
-    }
-  </style>
+.qr-close{
+  position:absolute;
+  top:10px;
+  right:15px;
+  font-size:25px;
+  cursor:pointer;
+}
+</style>
 </head>
 
 <body>
 
-<!-- ===== 언어 선택 ===== -->
 <div class="lang-bar">
-  <img src="us.png" class="flag" onclick="setLang('en')">
-  <img src="jp.png" class="flag" onclick="setLang('jp')">
-  <img src="cn.png" class="flag" onclick="setLang('cn')">
+<img src="us.png" class="flag" onclick="setLang('en')">
+<img src="jp.png" class="flag" onclick="setLang('jp')">
+<img src="cn.png" class="flag" onclick="setLang('cn')">
 </div>
 
 <h1>Events & Exhibitions</h1>
 
-<!-- ===== 이벤트 썸네일 ===== -->
 <div class="gallery">
-  <img src="beauty.png" class="thumbnail" onclick="openPopup('popup1')">
-  <img src="soju.png" class="thumbnail" onclick="openPopup('popup2')">
-  <img src="bts.png" class="thumbnail" onclick="openPopup('popup3')">
+<img src="beauty.png" class="thumbnail" onclick="openPopup('popup1')">
+<img src="soju.png" class="thumbnail" onclick="openPopup('popup2')">
+<img src="bts.png" class="thumbnail" onclick="openPopup('popup3')">
 </div>
 
-<!-- ===== EVENT 1 ===== -->
+<!-- EVENT 1 -->
 <div id="popup1" class="popup">
-  <div class="popup-content">
-    <button class="close-btn" onclick="closePopup('popup1')">✖</button>
-    <img src="beauty.png">
-    <div class="info">
-      <div class="lang en">
-        <b>Event Name</b><br>
-        Name : Beauty Expo<br>
-        Date : May 20<br>
-        Location : COEX<br>
-        Description : Large beauty exhibition
-      </div>
-      <div class="lang jp">
-        <b>イベント名</b><br>
-        イベント名 : ビューティー展示会<br>
-        日付 : 5月20日<br>
-        場所 : COEX<br>
-        説明 : 大規模美容展示会
-      </div>
-      <div class="lang cn">
-        <b>活动名称</b><br>
-        活动名称 : 美容展览<br>
-        日期 : 5月20日<br>
-        地点 : COEX<br>
-        说明 : 大型美容展
-      </div>
-      <div class="action-buttons">
-        <button onclick="openMap('코엑스')">📍 MAP</button>
-        <button onclick="openQR('qr1')">📱 QR</button>
-      </div>
-    </div>
-  </div>
+<div class="popup-content">
+<button class="close-btn" onclick="closePopup('popup1')">✖</button>
+<img src="beauty.png">
+<div class="info">
+
+<div class="lang en">
+<b>Event Name</b><br>
+Name : Beauty Expo<br>
+Date : May 20<br>
+Location : COEX<br>
+Description : Large beauty exhibition
 </div>
 
-<!-- ===== EVENT 2 ===== -->
+<div class="lang jp">
+<b>イベント名</b><br>
+イベント名 : ビューティー展示会<br>
+日付 : 5月20日<br>
+場所 : COEX<br>
+説明 : 大規模美容展示会
+</div>
+
+<div class="lang cn">
+<b>活动名称</b><br>
+活动名称 : 美容展览<br>
+日期 : 5月20日<br>
+地点 : COEX<br>
+说明 : 大型美容展
+</div>
+
+<div class="action-buttons">
+<button onclick="openMap('코엑스')">📍 MAP</button>
+<button onclick="openQR('qr1')">📱 QR</button>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- EVENT 2 -->
 <div id="popup2" class="popup">
-  <div class="popup-content">
-    <button class="close-btn" onclick="closePopup('popup2')">✖</button>
-    <img src="soju.png">
-    <div class="info">
-      <div class="lang en">
-        <b>Event Name</b><br>
-        Name : Soju Festival<br>
-        Date : June 15<br>
-        Location : Seoul<br>
-        Description : Korean alcohol festival
-      </div>
-      <div class="lang jp">
-        <b>イベント名</b><br>
-        イベント名 : 焼酎フェスティバル<br>
-        日付 : 6月15日<br>
-        場所 : ソウル<br>
-        説明 : 韓国の伝統酒フェスティバル
-      </div>
-      <div class="lang cn">
-        <b>活动名称</b><br>
-        活动名称 : 烧酒节<br>
-        日期 : 6月15日<br>
-        地点 : 首尔<br>
-        说明 : 韩国传统酒文化节
-      </div>
-      <div class="action-buttons">
-        <button onclick="openMap('서울')">📍 MAP</button>
-        <button onclick="openQR('qr2')">📱 QR</button>
-      </div>
-    </div>
-  </div>
+<div class="popup-content">
+<button class="close-btn" onclick="closePopup('popup2')">✖</button>
+<img src="soju.png">
+<div class="info">
+
+<div class="lang en">
+<b>Event Name</b><br>
+Name : Soju Festival<br>
+Date : June 15<br>
+Location : Seoul<br>
+Description : Korean alcohol festival
 </div>
 
-<!-- ===== EVENT 3 ===== -->
+<div class="lang jp">
+<b>イベント名</b><br>
+イベント名 : 焼酎フェスティバル<br>
+日付 : 6月15日<br>
+場所 : ソウル<br>
+説明 : 韓国の伝統酒フェスティバル
+</div>
+
+<div class="lang cn">
+<b>活动名称</b><br>
+活动名称 : 烧酒节<br>
+日期 : 6月15日<br>
+地点 : 首尔<br>
+说明 : 韩国传统酒文化节
+</div>
+
+<div class="action-buttons">
+<button onclick="openMap('서울')">📍 MAP</button>
+<button onclick="openQR('qr2')">📱 QR</button>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- EVENT 3 -->
 <div id="popup3" class="popup">
-  <div class="popup-content">
-    <button class="close-btn" onclick="closePopup('popup3')">✖</button>
-    <img src="bts.png">
-    <div class="info">
-      <div class="lang en">
-        <b>Event Name</b><br>
-        Name : BTS Exhibition<br>
-        Date : July 10<br>
-        Location : Seoul<br>
-        Description : BTS fan exhibition
-      </div>
-      <div class="lang jp">
-        <b>イベント名</b><br>
-        イベント名 : BTS 展示会<br>
-        日付 : 7月10日<br>
-        場所 : ソウル<br>
-        説明 : BTSファン展示イベント
-      </div>
-      <div class="lang cn">
-        <b>活动名称</b><br>
-        活动名称 : BTS 展览<br>
-        日期 : 7月10日<br>
-        地点 : 首尔<br>
-        说明 : BTS粉丝展览
-      </div>
-      <div class="action-buttons">
-        <button onclick="openMap('서울')">📍 MAP</button>
-        <button onclick="openQR('qr3')">📱 QR</button>
-      </div>
-    </div>
-  </div>
+<div class="popup-content">
+<button class="close-btn" onclick="closePopup('popup3')">✖</button>
+<img src="bts.png">
+<div class="info">
+
+<div class="lang en">
+<b>Event Name</b><br>
+Name : BTS Exhibition<br>
+Date : July 10<br>
+Location : Seoul<br>
+Description : BTS fan exhibition
 </div>
 
-<!-- ===== QR 팝업 ===== -->
+<div class="lang jp">
+<b>イベント名</b><br>
+イベント名 : BTS 展示会<br>
+日付 : 7月10日<br>
+場所 : ソウル<br>
+説明 : BTSファン展示イベント
+</div>
+
+<div class="lang cn">
+<b>活动名称</b><br>
+活动名称 : BTS 展览<br>
+日期 : 7月10日<br>
+地点 : 首尔<br>
+说明 : BTS粉丝展览
+</div>
+
+<div class="action-buttons">
+<button onclick="openMap('서울')">📍 MAP</button>
+<button onclick="openQR('qr3')">📱 QR</button>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- QR -->
 <div id="qr1" class="qr-popup">
-  <div class="qr-box">
-    <div class="qr-close" onclick="closeQR('qr1')">✖</div>
-    <img src="beautyqr.png"><p>Scan for map</p>
-  </div>
+<div class="qr-box">
+<div class="qr-close" onclick="closeQR('qr1')">✖</div>
+<img src="beautyqr.png"><p>Scan for map</p>
 </div>
+</div>
+
 <div id="qr2" class="qr-popup">
-  <div class="qr-box">
-    <div class="qr-close" onclick="closeQR('qr2')">✖</div>
-    <img src="sojuqr.png"><p>Scan for map</p>
-  </div>
+<div class="qr-box">
+<div class="qr-close" onclick="closeQR('qr2')">✖</div>
+<img src="sojuqr.png"><p>Scan for map</p>
 </div>
+</div>
+
 <div id="qr3" class="qr-popup">
-  <div class="qr-box">
-    <div class="qr-close" onclick="closeQR('qr3')">✖</div>
-    <img src="btsqr.png"><p>Scan for map</p>
-  </div>
+<div class="qr-box">
+<div class="qr-close" onclick="closeQR('qr3')">✖</div>
+<img src="btsqr.png"><p>Scan for map</p>
+</div>
 </div>
 
 <script>
+
 let currentLang="en";
-
-/* ===== 언어 선택 ===== */
-function setLang(lang){
-  currentLang=lang;
-  document.querySelectorAll(".lang").forEach(el=>el.style.display="none");
-  document.querySelectorAll("."+lang).forEach(el=>el.style.display="block");
-}
-
-/* ===== 초기화 ===== */
-window.onload=function(){
-  setLang("en");
-  startSlide();
-}
-
-/* ===== 팝업 ===== */
-function openPopup(id){
-  stopSlide();
-  document.querySelectorAll(".popup").forEach(p=>p.style.display="none");
-  document.getElementById(id).style.display="flex";
-  resetTimer();
-}
-function closePopup(id){ document.getElementById(id).style.display="none"; }
-
-/* ===== QR ===== */
-function openQR(id){ document.getElementById(id).style.display="flex"; }
-function closeQR(id){ document.getElementById(id).style.display="none"; }
-
-/* ===== NAVER MAP ===== */
-function openMap(place){
-  window.open("https://map.naver.com/p/search/"+encodeURIComponent(place), "_blank");
-}
-
-/* ===== 자동 슬라이드 ===== */
 let slideIndex=0;
-let thumbnails=document.querySelectorAll(".thumbnail");
+let thumbnails;
 let slideInterval;
-
-function autoSlide(){
-  thumbnails.forEach(t=>t.classList.remove("highlight"));
-  slideIndex++;
-  if(slideIndex>=thumbnails.length){ slideIndex=0; }
-  thumbnails[slideIndex].classList.add("highlight");
-}
-function startSlide(){ slideInterval=setInterval(autoSlide,6000); }
-function stopSlide(){ clearInterval(slideInterval); thumbnails.forEach(t=>t.classList.remove("highlight")); }
-
-/* ===== 30초 무작동 후 초기화 ===== */
 let idleTime=0;
-function timerIncrement(){ idleTime++; if(idleTime>30){ resetScreen(); } }
-function resetScreen(){
-  document.querySelectorAll(".popup").forEach(p=>p.style.display="none");
-  document.querySelectorAll(".qr-popup").forEach(p=>p.style.display="none");
-  setLang("en");
-  startSlide();
+
+/* 언어 선택 */
+function setLang(lang){
+currentLang=lang;
+document.querySelectorAll(".lang").forEach(el=>el.style.display="none");
+document.querySelectorAll("."+lang).forEach(el=>el.style.display="block");
 }
-function resetTimer(){ idleTime=0; }
 
-/* ===== 화면 터치/클릭 시 즉시 초기화 ===== */
-document.addEventListener("mousemove", resetTimer); // 마우스 이동은 idle만 리셋
-document.addEventListener("click", resetScreen);    // 클릭 시 즉시 초기화
-document.addEventListener("touchstart", resetScreen); // 터치 시 즉시 초기화
+/* 초기 로드 */
+window.onload=function(){
+setLang("en");
+thumbnails=document.querySelectorAll(".thumbnail");
+startSlide();
+}
 
-setInterval(timerIncrement, 1000);
+/* 팝업 */
+function openPopup(id){
+stopSlide();
+document.querySelectorAll(".popup").forEach(p=>p.style.display="none");
+document.getElementById(id).style.display="flex";
+resetTimer();
+}
+
+function closePopup(id){
+document.getElementById(id).style.display="none";
+}
+
+/* QR */
+function openQR(id){
+document.getElementById(id).style.display="flex";
+}
+
+function closeQR(id){
+document.getElementById(id).style.display="none";
+}
+
+/* NAVER MAP */
+function openMap(place){
+window.open("https://map.naver.com/p/search/"+encodeURIComponent(place),"_blank");
+}
+
+/* 자동 슬라이드 */
+function autoSlide(){
+thumbnails.forEach(t=>t.classList.remove("highlight"));
+slideIndex++;
+if(slideIndex>=thumbnails.length){slideIndex=0;}
+thumbnails[slideIndex].classList.add("highlight");
+}
+
+function startSlide(){
+slideInterval=setInterval(autoSlide,6000);
+}
+
+function stopSlide(){
+clearInterval(slideInterval);
+thumbnails.forEach(t=>t.classList.remove("highlight"));
+}
+
+/* idle */
+function timerIncrement(){
+idleTime++;
+if(idleTime>30){resetScreen();}
+}
+
+function resetScreen(){
+document.querySelectorAll(".popup").forEach(p=>p.style.display="none");
+document.querySelectorAll(".qr-popup").forEach(p=>p.style.display="none");
+setLang("en");
+startSlide();
+}
+
+function resetTimer(){
+idleTime=0;
+}
+
+/* 사용자 행동 */
+document.addEventListener("mousemove",resetTimer);
+document.addEventListener("click",resetTimer);
+document.addEventListener("touchstart",resetTimer);
+
+setInterval(timerIncrement,1000);
 
 </script>
 
+</body>
+</html>
 </body>
 </html>
 
