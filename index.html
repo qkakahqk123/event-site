@@ -8,137 +8,62 @@
 <style>
 /* ================= 기본 스타일 ================= */
 html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100vh;
+  margin: 0; padding: 0;
+  width: 100%; min-height: 100vh;
   font-family: Arial;
   background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url("background.jpg");
-  background-size: cover;
-  background-position: center;
-  text-align: center;
-  overflow-x: hidden;
+  background-size: cover; background-position: center;
+  text-align: center; overflow-x: hidden;
 }
 
 h1 {
-  color: white;
-  font-size: 4vw;
-  margin-top: 40px;
+  color: white; font-size: 4vw; margin-top: 40px;
   text-shadow: 0 3px 10px rgba(0,0,0,0.6);
-  height: 100px;
-  display: flex;
-  align-items: center;    
-  justify-content: center;
+  height: 100px; display: flex; align-items: center; justify-content: center;
 }
 
-.lang-bar {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  display: flex;
-  gap: 10px;
-  z-index: 2000;
-}
+.lang-bar { position: fixed; top: 20px; right: 20px; display: flex; gap: 10px; z-index:2000; }
 .flag { width:45px; cursor:pointer; }
 
-.gallery {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 40px;
-  margin-top: 50px;
-  max-width: 1400px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.thumbnail { width: 330px; height: 330px; object-fit: cover; border-radius: 15px; cursor: pointer; transition: 0.3s; }
+.gallery { display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; margin-top:50px; max-width:1400px; margin-left:auto; margin-right:auto; }
+.thumbnail { width:330px; height:330px; object-fit: cover; border-radius:15px; cursor:pointer; transition:0.3s; }
 .thumbnail:hover { transform: scale(1.05); }
 
 .popup, .qr-popup {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.8);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  opacity:0;
-  transition:opacity 0.35s ease;
+  display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+  background: rgba(0,0,0,0.8); justify-content:center; align-items:center;
+  z-index:1000; opacity:0; transition:opacity 0.35s ease;
 }
-
-.popup.show, .qr-popup.show{ opacity:1; }
+.popup.show, .qr-popup.show { opacity:1; }
 
 .popup-content {
-  background: white;
-  width: 90%;
-  max-width: 1000px;
-  padding: 30px;
-  border-radius: 15px;
-  display: flex;
-  gap: 30px;
-  position: relative;
-  transform:scale(0.85);
-  transition:transform 0.35s ease;
+  background:white; width:90%; max-width:1000px; padding:30px; border-radius:15px;
+  display:flex; gap:30px; position:relative; transform:scale(0.85); transition:transform 0.35s ease;
 }
+.popup.show .popup-content { transform:scale(1); }
 
-.popup.show .popup-content{ transform:scale(1); }
-
-.popup-content img { width: 40%; }
-.close-btn {
-  position: absolute;
-  top: 15px; right: 20px;
-  font-size: 30px;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
+.popup-content img { width:40%; }
+.close-btn { position:absolute; top:15px; right:20px; font-size:30px; border:none; background:none; cursor:pointer; }
 .info { flex:1; text-align:left; line-height:1.7; }
 
-.action-buttons {
-  margin-top:20px;
-  display:flex;
-  gap:15px;
-}
-.action-buttons button {
-  padding:12px 20px;
-  border:none;
-  border-radius:10px;
-  background:#222;
-  color:white;
-  cursor:pointer;
-}
+.action-buttons { margin-top:20px; display:flex; gap:15px; }
+.action-buttons button { padding:12px 20px; border:none; border-radius:10px; background:#222; color:white; cursor:pointer; }
 
 .lang{ display:none; }
 
-.qr-box{
-  background:white;
-  padding:30px;
-  border-radius:15px;
-  position:relative;
-  text-align:center;
-}
+.qr-box{ background:white; padding:30px; border-radius:15px; position:relative; text-align:center; }
 .qr-box img{ width:300px; }
 .qr-close{ position:absolute; top:10px; right:15px; font-size:25px; cursor:pointer; }
-
-/* ================= 호텔 라벨 스타일 ================= */
-.hotel-label{
-    color:red;
-    font-weight:bold;
-    font-size:16px;
-    text-align:center;
-    text-shadow:1px 1px 2px #fff;
-}
 </style>
 
-<!-- ⭐ 지도 라이브러리 -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<!-- ⭐ 네이버 지도 API -->
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID"></script>
 
 </head>
+
 <body>
 
-<!-- 언어 선택 -->
+<!-- ================= 언어 선택 ================= -->
 <div class="lang-bar">
   <img src="us.png" class="flag" onclick="setLang('en')">
   <img src="jp.png" class="flag" onclick="setLang('jp')">
@@ -147,14 +72,14 @@ h1 {
 
 <h1>Events & Exhibitions</h1>
 
-<!-- 썸네일 -->
+<!-- ================= 썸네일 ================= -->
 <div class="gallery">
   <img src="beauty.png" class="thumbnail" onclick="openPopup('popup1')">
   <img src="soju.png" class="thumbnail" onclick="openPopup('popup2')">
   <img src="bts.png" class="thumbnail" onclick="openPopup('popup3')">
 </div>
 
-<!-- EVENT POPUPS -->
+<!-- ================= EVENT 1 ================= -->
 <div id="popup1" class="popup">
   <div class="popup-content">
     <button class="close-btn" onclick="closePopup('popup1')">✖</button>
@@ -171,6 +96,7 @@ h1 {
   </div>
 </div>
 
+<!-- ================= EVENT 2 ================= -->
 <div id="popup2" class="popup">
   <div class="popup-content">
     <button class="close-btn" onclick="closePopup('popup2')">✖</button>
@@ -187,6 +113,7 @@ h1 {
   </div>
 </div>
 
+<!-- ================= EVENT 3 ================= -->
 <div id="popup3" class="popup">
   <div class="popup-content">
     <button class="close-btn" onclick="closePopup('popup3')">✖</button>
@@ -203,69 +130,62 @@ h1 {
   </div>
 </div>
 
-<!-- QR -->
+<!-- ================= QR ================= -->
 <div id="qr1" class="qr-popup"><div class="qr-box"><div class="qr-close" onclick="closeQR('qr1')">✖</div><img src="beautyqr.png"></div></div>
 <div id="qr2" class="qr-popup"><div class="qr-box"><div class="qr-close" onclick="closeQR('qr2')">✖</div><img src="sojuqr.png"></div></div>
 <div id="qr3" class="qr-popup"><div class="qr-box"><div class="qr-close" onclick="closeQR('qr3')">✖</div><img src="btsqr.png"></div></div>
 
-<!-- MAP POPUP -->
+<!-- ================= MAP POPUP ================= -->
 <div id="mapPopup" class="popup">
   <div class="popup-content" style="flex-direction:column; max-width:900px;">
     <button class="close-btn" onclick="closeMap()">✖</button>
-    <div id="map" style="width:100%;height:500px;border-radius:10px;"></div>
+    <div id="naverMap" style="width:100%;height:500px;border-radius:10px;"></div>
   </div>
 </div>
 
 <script>
 // ================= 글로벌 변수 =================
 let currentLang="en";
-const titleEl=document.querySelector("h1");
-const titles={ en:"Events & Exhibitions", jp:"イベント＆展示会", cn:"活动与展览" };
+const titleEl = document.querySelector("h1");
+const titles = { en:"Events & Exhibitions", jp:"イベント＆展示会", cn:"活动与展览" };
 
 // ================= 언어 선택 =================
 function setLang(lang){
-currentLang=lang;
-document.querySelectorAll(".lang").forEach(el=>el.style.display="none");
-document.querySelectorAll("."+lang).forEach(el=>el.style.display="block");
-titleEl.textContent=titles[lang];
+  currentLang = lang;
+  document.querySelectorAll(".lang").forEach(el => el.style.display="none");
+  document.querySelectorAll("." + lang).forEach(el => el.style.display="block");
+  titleEl.textContent = titles[lang];
 }
 
 // ================= 팝업 =================
 function openPopup(id){
-document.querySelectorAll(".popup").forEach(p=>{p.style.display="none"; p.classList.remove("show");});
-let popup=document.getElementById(id);
-popup.style.display="flex";
-setTimeout(()=>popup.classList.add("show"),10);
-resetTimer();
+  document.querySelectorAll(".popup").forEach(p => {p.style.display="none"; p.classList.remove("show");});
+  const popup = document.getElementById(id);
+  popup.style.display="flex";
+  setTimeout(()=>popup.classList.add("show"),10);
+  resetTimer();
 }
 function closePopup(id){
-let popup=document.getElementById(id);
-popup.classList.remove("show");
-setTimeout(()=>popup.style.display="none",300);
+  const popup = document.getElementById(id);
+  popup.classList.remove("show");
+  setTimeout(()=>popup.style.display="none",300);
 }
 
 // ================= QR =================
-function openQR(id){
-let qr=document.getElementById(id);
-qr.style.display="flex";
-setTimeout(()=>qr.classList.add("show"),10);
+function openQR(id){ 
+  const qr = document.getElementById(id);
+  qr.style.display="flex";
+  setTimeout(()=>qr.classList.add("show"),10);
 }
-function closeQR(id){
-let qr=document.getElementById(id);
-qr.classList.remove("show");
-setTimeout(()=>qr.style.display="none",300);
+function closeQR(id){ 
+  const qr = document.getElementById(id);
+  qr.classList.remove("show");
+  setTimeout(()=>qr.style.display="none",300);
 }
 
-// ================= MAP =================
-let kioskMap;
-
-// ================= 호텔 좌표 =================
-const HOTEL_LAT = 37.54556;
-const HOTEL_LNG = 126.9716;
-
-// ================= 행사장 좌표 =================
+// ================= MAP (네이버) =================
 const eventLocations = {
-  "Beauty Expo": [37.5125, 127.0588],      // COEX
+  "Beauty Expo": [37.5125, 127.0588],
   "Soju Festival": [37.56346, 126.9874],
   "BTS Exhibition": [37.54231, 127.0555]
 };
@@ -273,60 +193,62 @@ const eventLocations = {
 function openMapPopup(place){
   const mapPopup = document.getElementById("mapPopup");
   mapPopup.style.display="flex";
+  setTimeout(()=>mapPopup.classList.add("show"),10);
 
-  // 팝업이 보인 후 지도 초기화
   setTimeout(()=>{
-    if(kioskMap){ kioskMap.remove(); }
+    const coords = eventLocations[place] || [37.5665,126.9780];
+    const map = new naver.maps.Map('naverMap', {
+      center: new naver.maps.LatLng(coords[0], coords[1]),
+      zoom: 14
+    });
 
-    let coords = eventLocations[place] || [37.5665,126.9780];
-    let eventLat = coords[0];
-    let eventLng = coords[1];
-
-    kioskMap = L.map('map').setView([eventLat,eventLng],12);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{ maxZoom:19 }).addTo(kioskMap);
-
-    let eventMarker = L.marker([eventLat,eventLng]).addTo(kioskMap);
-    eventMarker.bindPopup("<b>EVENT LOCATION</b>").openPopup();
-
-    let hotelIcon = L.divIcon({ className:"hotel-label", html:"<b>HOTEL</b>", iconSize:[50,20], iconAnchor:[25,10] });
-    L.marker([HOTEL_LAT,HOTEL_LNG], {icon:hotelIcon}).addTo(kioskMap);
-
-    kioskMap.invalidateSize();
-    mapPopup.classList.add("show");
-  },50);
+    // 행사장 마커만
+    new naver.maps.Marker({
+      position: new naver.maps.LatLng(coords[0], coords[1]),
+      map: map,
+      title: "EVENT"
+    });
+  },100);
 }
-
 function closeMap(){
-  let popup=document.getElementById("mapPopup");
+  const popup = document.getElementById("mapPopup");
   popup.classList.remove("show");
   setTimeout(()=>popup.style.display="none",300);
 }
 
-// ================= 30초 자동 =================
-let idleTime=0;
+// ================= 30초 무작동 자동 초기화 =================
+let idleTime = 0;
 function timerIncrement(){ idleTime++; if(idleTime>30){ resetScreen(); } }
-function resetTimer(){ idleTime=0; }
+function resetTimer(){ idleTime = 0; }
 function resetScreen(){
-document.querySelectorAll(".popup").forEach(p=>{p.style.display="none"; p.classList.remove("show");});
-document.querySelectorAll(".qr-popup").forEach(p=>{p.style.display="none"; p.classList.remove("show");});
-setLang("en");
+  document.querySelectorAll(".popup").forEach(p=>{p.style.display="none"; p.classList.remove("show");});
+  document.querySelectorAll(".qr-popup").forEach(p=>{p.style.display="none"; p.classList.remove("show");});
+  setLang("en");
 }
-document.addEventListener("mousemove",resetTimer);
-document.addEventListener("click",resetTimer);
-document.addEventListener("touchstart",resetTimer);
+document.addEventListener("mousemove", resetTimer);
+document.addEventListener("click", resetTimer);
+document.addEventListener("touchstart", resetTimer);
 setInterval(timerIncrement,1000);
-
-// ================= 초기 언어 =================
-window.onload=function(){setLang("en");}
 
 // ================= 팝업 바깥 클릭 닫기 =================
 document.querySelectorAll(".popup").forEach(popup=>{
-popup.addEventListener("click",function(e){ if(e.target===popup){ popup.classList.remove("show"); setTimeout(()=>popup.style.display="none",300); } });
+  popup.addEventListener("click", function(e){
+    if(e.target===popup){
+      popup.classList.remove("show");
+      setTimeout(()=>popup.style.display="none",300);
+    }
+  });
 });
 document.querySelectorAll(".qr-popup").forEach(popup=>{
-popup.addEventListener("click",function(e){ if(e.target===popup){ popup.classList.remove("show"); setTimeout(()=>popup.style.display="none",300); } });
+  popup.addEventListener("click", function(e){
+    if(e.target===popup){
+      popup.classList.remove("show");
+      setTimeout(()=>popup.style.display="none",300);
+    }
+  });
 });
+
+window.onload = function(){ setLang("en"); }
 </script>
 
 </body>
