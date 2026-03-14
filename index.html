@@ -63,7 +63,6 @@ h1 {
   justify-content: center;
   align-items: center;
   z-index: 1000;
-
   opacity:0;
   transition:opacity 0.35s ease;
 }
@@ -79,7 +78,6 @@ h1 {
   display: flex;
   gap: 30px;
   position: relative;
-
   transform:scale(0.85);
   transition:transform 0.35s ease;
 }
@@ -214,18 +212,17 @@ h1 {
 <div id="mapPopup" class="popup">
   <div class="popup-content" style="flex-direction:column; max-width:900px;">
     <button class="close-btn" onclick="closeMap()">✖</button>
-    <iframe id="mapFrame" width="100%" height="500" style="border:0;border-radius:10px;" allowfullscreen></iframe>
-    <div id="map" style="width:100%;height:500px;border-radius:10px;display:none;"></div>
+    <div id="map" style="width:100%;height:500px;border-radius:10px;"></div>
   </div>
 </div>
 
 <script>
-// ================= 글로벌 =================
+// ================= 글로벌 변수 =================
 let currentLang="en";
 const titleEl=document.querySelector("h1");
 const titles={ en:"Events & Exhibitions", jp:"イベント＆展示会", cn:"活动与展览" };
 
-// ================= 언어 =================
+// ================= 언어 선택 =================
 function setLang(lang){
 currentLang=lang;
 document.querySelectorAll(".lang").forEach(el=>el.style.display="none");
@@ -241,7 +238,6 @@ popup.style.display="flex";
 setTimeout(()=>popup.classList.add("show"),10);
 resetTimer();
 }
-
 function closePopup(id){
 let popup=document.getElementById(id);
 popup.classList.remove("show");
@@ -254,7 +250,6 @@ let qr=document.getElementById(id);
 qr.style.display="flex";
 setTimeout(()=>qr.classList.add("show"),10);
 }
-
 function closeQR(id){
 let qr=document.getElementById(id);
 qr.classList.remove("show");
@@ -266,25 +261,19 @@ let kioskMap;
 const HOTEL_LAT = 37.54556;
 const HOTEL_LNG = 126.9716;
 
-// ⭐ 여기서 행사장 좌표 자동 매핑
-// place 값에 따라 좌표 변경
+// 행사장 좌표
 const eventLocations = {
-  "Beauty Expo": [37.5125, 127.0588],      // COEX
-  "Soju Festival": [37.56346, 126.9874],    // 예시
-  "BTS Exhibition": [37.54231, 127.0555]    // 예시
+  "Beauty Expo": [37.5125, 127.0588],
+  "Soju Festival": [37.56346, 126.9874],
+  "BTS Exhibition": [37.54231, 127.0555]
 };
 
 function openMapPopup(place){
 document.getElementById("mapPopup").style.display="flex";
-
-// iframe 숨기고 지도 표시
-document.getElementById("mapFrame").style.display="none";
-document.getElementById("map").style.display="block";
-
 setTimeout(()=>{
 if(kioskMap){ kioskMap.remove(); }
 
-// 행사 좌표 가져오기
+// 좌표 가져오기
 let coords = eventLocations[place] || [37.5665,126.9780];
 let eventLat = coords[0];
 let eventLng = coords[1];
@@ -294,27 +283,22 @@ kioskMap = L.map('map').setView([eventLat,eventLng],12);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{ maxZoom:19 }).addTo(kioskMap);
 
-// ⭐ 행사장 핀
+// 행사장 마커
 let eventMarker = L.marker([eventLat,eventLng]).addTo(kioskMap);
 eventMarker.bindPopup("<b>EVENT LOCATION</b>").openPopup();
 
-// ⭐ 호텔 텍스트 라벨
-let hotelIcon = L.divIcon({
-    className: "hotel-label",
-    html: "<b>HOTEL</b>",
-    iconSize: [50,20],
-    iconAnchor: [25,10]
-});
-let hotelMarker = L.marker([HOTEL_LAT,HOTEL_LNG], {icon: hotelIcon}).addTo(kioskMap);
+// 호텔 라벨
+let hotelIcon = L.divIcon({ className:"hotel-label", html:"<b>HOTEL</b>", iconSize:[50,20], iconAnchor:[25,10] });
+L.marker([HOTEL_LAT,HOTEL_LNG], {icon:hotelIcon}).addTo(kioskMap);
 
-},100);
+// Leaflet 숨김 div 문제 해결
+kioskMap.invalidateSize();
+},200);
 }
 
 function closeMap(){
 let popup=document.getElementById("mapPopup");
 popup.style.display="none";
-document.getElementById("map").style.display="none";
-document.getElementById("mapFrame").style.display="block";
 }
 
 // ================= 30초 자동 =================
