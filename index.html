@@ -239,6 +239,17 @@ h1 {
 </div>
 </div>
 
+<!-- ================= EASTER EGG POPUP ================= -->
+<div id="creatorPopup" class="popup">
+  <div class="popup-content" style="flex-direction:column;align-items:center;text-align:center;">
+    <button class="close-btn" onclick="closePopup('creatorPopup')">✖</button>
+    <img src="creator.png" style="width:400px; border-radius:12px; margin-bottom:15px;">
+    <h2>Secret Developer</h2>
+    <p>Made by YOU 😎</p>
+  </div>
+</div>
+<audio id="secretAudio" src="secret.mp3"></audio>
+
 <script>
 
 let currentLang="en";
@@ -301,42 +312,26 @@ if(e.target===popup){popup.classList.remove("show");setTimeout(()=>popup.style.d
 });
 
 /* ===========================
-   EASTER EGG 추가
+   EASTER EGG 기능
 =========================== */
 
-/* 1️⃣ 팝업 HTML 추가 */
-document.body.insertAdjacentHTML('beforeend',`
-<div id="creatorPopup" class="popup">
-<div class="popup-content" style="flex-direction:column;align-items:center;text-align:center;">
-<button class="close-btn" onclick="closePopup('creatorPopup')">✖</button>
-<video width="400" autoplay loop muted playsinline style="border-radius:12px;margin-bottom:15px;">
-<source src="creator.mp4" type="video/mp4">
-</video>
-<h2>Secret Developer</h2>
-<p>Made by RITO 😎</p>
-</div>
-</div>
-<audio id="secretAudio" src="secret.mp3"></audio>
-`);
-
-/* 2️⃣ 클릭 5번 → 팝업 + 음악 */
-let logoClickCount=0;
+let logoClickCount = 0;
 titleEl.addEventListener("click", function(){
-logoClickCount++;
-if(logoClickCount>=5){
-document.getElementById("secretAudio").play();
-openPopup("creatorPopup");
-logoClickCount=0;
-}
-setTimeout(()=>{logoClickCount=0;},2000);
+  logoClickCount++;
+  if(logoClickCount >= 5){
+    document.getElementById("secretAudio").play();
+    openPopup("creatorPopup");
+    logoClickCount = 0;
+  }
+  setTimeout(()=>{logoClickCount = 0;},2000);
 });
 
-/* 3️⃣ 팝업 닫으면 음악 정지 */
-const originalClosePopup=closePopup;
-closePopup=function(id){
-let audio=document.getElementById("secretAudio");
-if(audio){audio.pause();audio.currentTime=0;}
-originalClosePopup(id);
+/* 팝업 닫으면 음악 정지 */
+const originalClosePopup = closePopup;
+closePopup = function(id){
+  let audio = document.getElementById("secretAudio");
+  if(audio){ audio.pause(); audio.currentTime = 0; }
+  originalClosePopup(id);
 };
 
 </script>
