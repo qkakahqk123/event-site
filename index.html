@@ -156,6 +156,22 @@ h1 {
   font-size: 25px;
   cursor: pointer;
 }
+
+/* ================= CAT BUTTON ================= */
+.cat-button{
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  font-size: 40px;
+  cursor: pointer;
+  z-index: 1500;
+  transition: transform 0.2s;
+}
+
+.cat-button:hover{
+  transform: scale(1.2);
+}
+
 </style>
 </head>
 
@@ -230,6 +246,20 @@ h1 {
 <div id="qr1" class="qr-popup"><div class="qr-box"><div class="qr-close" onclick="closeQR('qr1')">✖</div><img src="beautyqr.png"></div></div>
 <div id="qr2" class="qr-popup"><div class="qr-box"><div class="qr-close" onclick="closeQR('qr2')">✖</div><img src="sojuqr.png"></div></div>
 <div id="qr3" class="qr-popup"><div class="qr-box"><div class="qr-close" onclick="closeQR('qr3')">✖</div><img src="btsqr.png"></div></div>
+
+<!-- CAT DONATION QR -->
+<div id="catQR" class="qr-popup">
+<div class="qr-box">
+<div class="qr-close" onclick="closeQR('catQR')">✖</div>
+<h3 style="margin-bottom:15px;">Feed the cats 🐱</h3>
+<img src="ritoqr.jpg">
+</div>
+</div>
+
+<!-- CAT BUTTON -->
+<div class="cat-button" onclick="openQR('catQR')" title="Feed the cats">
+🐱
+</div>
 
 <!-- MAP -->
 <div id="mapPopup" class="popup">
