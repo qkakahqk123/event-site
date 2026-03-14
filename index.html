@@ -258,47 +258,49 @@ setTimeout(()=>qr.style.display="none",300);
 
 // ================= MAP =================
 let kioskMap;
+
+// ================= 호텔 좌표 =================
 const HOTEL_LAT = 37.54556;
 const HOTEL_LNG = 126.9716;
 
-// 행사장 좌표
+// ================= 행사장 좌표 =================
 const eventLocations = {
-  "Beauty Expo": [37.5125, 127.0588],
+  "Beauty Expo": [37.5125, 127.0588],      // COEX
   "Soju Festival": [37.56346, 126.9874],
   "BTS Exhibition": [37.54231, 127.0555]
 };
 
 function openMapPopup(place){
-document.getElementById("mapPopup").style.display="flex";
-setTimeout(()=>{
-if(kioskMap){ kioskMap.remove(); }
+  const mapPopup = document.getElementById("mapPopup");
+  mapPopup.style.display="flex";
 
-// 좌표 가져오기
-let coords = eventLocations[place] || [37.5665,126.9780];
-let eventLat = coords[0];
-let eventLng = coords[1];
+  // 팝업이 보인 후 지도 초기화
+  setTimeout(()=>{
+    if(kioskMap){ kioskMap.remove(); }
 
-// 지도 생성
-kioskMap = L.map('map').setView([eventLat,eventLng],12);
+    let coords = eventLocations[place] || [37.5665,126.9780];
+    let eventLat = coords[0];
+    let eventLng = coords[1];
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{ maxZoom:19 }).addTo(kioskMap);
+    kioskMap = L.map('map').setView([eventLat,eventLng],12);
 
-// 행사장 마커
-let eventMarker = L.marker([eventLat,eventLng]).addTo(kioskMap);
-eventMarker.bindPopup("<b>EVENT LOCATION</b>").openPopup();
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{ maxZoom:19 }).addTo(kioskMap);
 
-// 호텔 라벨
-let hotelIcon = L.divIcon({ className:"hotel-label", html:"<b>HOTEL</b>", iconSize:[50,20], iconAnchor:[25,10] });
-L.marker([HOTEL_LAT,HOTEL_LNG], {icon:hotelIcon}).addTo(kioskMap);
+    let eventMarker = L.marker([eventLat,eventLng]).addTo(kioskMap);
+    eventMarker.bindPopup("<b>EVENT LOCATION</b>").openPopup();
 
-// Leaflet 숨김 div 문제 해결
-kioskMap.invalidateSize();
-},200);
+    let hotelIcon = L.divIcon({ className:"hotel-label", html:"<b>HOTEL</b>", iconSize:[50,20], iconAnchor:[25,10] });
+    L.marker([HOTEL_LAT,HOTEL_LNG], {icon:hotelIcon}).addTo(kioskMap);
+
+    kioskMap.invalidateSize();
+    mapPopup.classList.add("show");
+  },50);
 }
 
 function closeMap(){
-let popup=document.getElementById("mapPopup");
-popup.style.display="none";
+  let popup=document.getElementById("mapPopup");
+  popup.classList.remove("show");
+  setTimeout(()=>popup.style.display="none",300);
 }
 
 // ================= 30초 자동 =================
