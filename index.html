@@ -257,7 +257,7 @@ h1 {
 </div>
 
 <!-- CAT BUTTON -->
-<div class="cat-button" onclick="openQR('catQR')" title="Feed the cats">
+<div class="cat-button" title="Feed the cats">
 🐱
 </div>
 
@@ -278,7 +278,10 @@ h1 {
     <p style="font-size:1rem;">Made by RITO 😎</p>
   </div>
 </div>
+
+<!-- =========================== 통합 오디오 =========================== -->
 <audio id="secretAudio" src="secret.mp3"></audio>
+<audio id="catSound" src="catmeow.mp3"></audio>
 
 <script>
 
@@ -363,6 +366,16 @@ closePopup = function(id){
   if(audio){ audio.pause(); audio.currentTime = 0; }
   originalClosePopup(id);
 };
+
+/* =========================== 고양이 울음 이스터 에그 =========================== */
+function openCatEgg() {
+    openQR('catQR');
+    let catAudio = document.getElementById("catSound");
+    catAudio.currentTime = 0;
+    catAudio.play();
+}
+
+document.querySelector(".cat-button").addEventListener("click", openCatEgg);
 
 </script>
 
