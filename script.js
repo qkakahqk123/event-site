@@ -115,14 +115,20 @@ function openMap(place){
   mapPopup.style.display = "flex";
   setTimeout(() => mapPopup.classList.add("show"), 10);
 
-  // 모바일/데스크탑 공통 배경 터치 닫기
   const closeMapOnOutside = (e) => {
     if(!e.target.closest('.popup-content')){
+      e.stopPropagation();
       mapPopup.remove();
     }
   };
   mapPopup.addEventListener('click', closeMapOnOutside);
   mapPopup.addEventListener('touchstart', closeMapOnOutside);
+
+  const content = mapPopup.querySelector('.popup-content');
+  if(content){
+    content.addEventListener('click', e => e.stopPropagation());
+    content.addEventListener('touchstart', e => e.stopPropagation());
+  }
 }
 
 // ================= EVENT GENERATION =================
@@ -181,10 +187,11 @@ titleEl.addEventListener("click", () => {
   setTimeout(() => logoClickCount = 0, 2000);
 });
 
-// ================= POPUP & QR BACKGROUND CLICK (모바일 포함) =================
+// ================= POPUP & QR BACKGROUND CLICK (모바일 안전) =================
 document.querySelectorAll('.popup, .qr-popup').forEach(popup => {
   const closeOnOutside = (e) => {
     if(!e.target.closest('.popup-content') && !e.target.closest('.qr-box')){
+      e.stopPropagation(); // 버블링 방지
       if(popup.classList.contains('qr-popup')){
         closeQR(popup.id);
       } else {
@@ -192,8 +199,15 @@ document.querySelectorAll('.popup, .qr-popup').forEach(popup => {
       }
     }
   };
+
   popup.addEventListener('click', closeOnOutside);
   popup.addEventListener('touchstart', closeOnOutside);
+
+  const content = popup.querySelector('.popup-content') || popup.querySelector('.qr-box');
+  if(content){
+    content.addEventListener('click', e => e.stopPropagation());
+    content.addEventListener('touchstart', e => e.stopPropagation());
+  }
 });
 
 // ================= INIT =================
