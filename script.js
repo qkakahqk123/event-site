@@ -115,14 +115,34 @@ function openMap(place){
   mapPopup.style.display = "flex";
   setTimeout(() => mapPopup.classList.add("show"), 10);
 
+  let ignoreNextClick = false;
   const closeMapOnOutside = (e) => {
     if(!e.target.closest('.popup-content')){
       e.stopPropagation();
       mapPopup.remove();
+
+      ignoreNextClick = true;
+      setTimeout(() => ignoreNextClick = false, 50);
     }
   };
-  mapPopup.addEventListener('click', closeMapOnOutside);
-  mapPopup.addEventListener('touchstart', closeMapOnOutside);
+
+  mapPopup.addEventListener('click', e => {
+    if(ignoreNextClick) {
+      e.stopPropagation();
+      e.preventDefault();
+      return;
+    }
+    closeMapOnOutside(e);
+  });
+
+  mapPopup.addEventListener('touchstart', e => {
+    if(ignoreNextClick) {
+      e.stopPropagation();
+      e.preventDefault();
+      return;
+    }
+    closeMapOnOutside(e);
+  });
 
   const content = mapPopup.querySelector('.popup-content');
   if(content){
@@ -188,20 +208,40 @@ titleEl.addEventListener("click", () => {
 });
 
 // ================= POPUP & QR BACKGROUND CLICK (모바일 안전) =================
+let ignoreNextClick = false;
+
 document.querySelectorAll('.popup, .qr-popup').forEach(popup => {
   const closeOnOutside = (e) => {
     if(!e.target.closest('.popup-content') && !e.target.closest('.qr-box')){
-      e.stopPropagation(); // 버블링 방지
+      e.stopPropagation();
       if(popup.classList.contains('qr-popup')){
         closeQR(popup.id);
       } else {
         closePopup(popup.id);
       }
+
+      ignoreNextClick = true;
+      setTimeout(() => ignoreNextClick = false, 50);
     }
   };
 
-  popup.addEventListener('click', closeOnOutside);
-  popup.addEventListener('touchstart', closeOnOutside);
+  popup.addEventListener('click', e => {
+    if(ignoreNextClick) {
+      e.stopPropagation();
+      e.preventDefault();
+      return;
+    }
+    closeOnOutside(e);
+  });
+
+  popup.addEventListener('touchstart', e => {
+    if(ignoreNextClick) {
+      e.stopPropagation();
+      e.preventDefault();
+      return;
+    }
+    closeOnOutside(e);
+  });
 
   const content = popup.querySelector('.popup-content') || popup.querySelector('.qr-box');
   if(content){
