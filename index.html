@@ -6,170 +6,167 @@
 <title>Events & Exhibitions</title>
 
 <style>
-/* ================= 기본 스타일 ================= */
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100vh;
-  font-family: Arial;
-  background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url("background.jpg");
-  background-size: cover;
-  background-position: center;
-  text-align: center;
-  overflow-x: hidden;
+
+html,body{
+margin:0;
+padding:0;
+font-family:Arial;
+background:linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.35)),url("background.jpg");
+background-size:cover;
+background-position:center;
+text-align:center;
+overflow-x:hidden;
 }
 
-/* ================= 제목 ================= */
-h1 {
-  color: white;
-  font-size: 4vw;
-  margin-top: 40px;
-  text-shadow: 0 3px 10px rgba(0,0,0,0.6);
-  height: 100px;
-  display: flex;
-  align-items: center;    
-  justify-content: center;
+h1{
+color:white;
+font-size:4vw;
+margin-top:40px;
+text-shadow:0 3px 10px rgba(0,0,0,0.6);
+height:100px;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
-/* ================= 언어 선택 ================= */
-.lang-bar {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  display: flex;
-  gap: 10px;
-  z-index: 2000;
-}
-.flag {
-  width: 45px;
-  cursor: pointer;
+.lang-bar{
+position:fixed;
+top:20px;
+right:20px;
+display:flex;
+gap:10px;
+z-index:2000;
 }
 
-/* ================= 갤러리 ================= */
-.gallery {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 40px;
-  margin-top: 50px;
-  max-width: 1400px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.thumbnail {
-  width: 330px;
-  height: 330px;
-  object-fit: cover;
-  border-radius: 15px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.thumbnail:hover { transform: scale(1.05); }
-
-/* ================= 팝업 ================= */
-.popup, .qr-popup {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.8);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  opacity:0; 
-  transition:opacity 0.35s ease; 
+.flag{
+width:45px;
+cursor:pointer;
 }
 
-.popup.show, .qr-popup.show{
-  opacity:1;
+.gallery{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:40px;
+margin-top:50px;
+max-width:1400px;
+margin-left:auto;
+margin-right:auto;
 }
 
-.popup-content {
-  background: white;
-  width: 90%;
-  max-width: 1000px;
-  padding: 30px;
-  border-radius: 15px;
-  display: flex;
-  gap: 30px;
-  position: relative;
-  transform:scale(0.85); 
-  transition:transform 0.35s ease; 
+.thumbnail{
+width:330px;
+height:330px;
+object-fit:cover;
+border-radius:15px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.thumbnail:hover{
+transform:scale(1.05);
+}
+
+.popup,.qr-popup{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
+justify-content:center;
+align-items:center;
+z-index:1000;
+opacity:0;
+transition:opacity 0.35s;
+}
+
+.popup.show,.qr-popup.show{
+opacity:1;
+}
+
+.popup-content{
+background:white;
+width:90%;
+max-width:1000px;
+padding:30px;
+border-radius:15px;
+display:flex;
+gap:30px;
+position:relative;
+transform:scale(0.85);
+transition:transform 0.35s;
 }
 
 .popup.show .popup-content{
-  transform:scale(1); 
+transform:scale(1);
 }
 
-.popup-content img {
-  width: 40%;
+.popup-content img{
+width:40%;
 }
 
-.close-btn {
-  position: absolute;
-  top: 15px; right: 20px;
-  font-size: 30px;
-  border: none;
-  background: none;
-  cursor: pointer;
+.close-btn{
+position:absolute;
+top:15px;
+right:20px;
+font-size:30px;
+border:none;
+background:none;
+cursor:pointer;
 }
 
-.info {
-  flex: 1;
-  text-align: left;
-  line-height: 1.7;
+.info{
+flex:1;
+text-align:left;
+line-height:1.7;
 }
 
-.action-buttons {
-  margin-top: 20px;
-  display: flex;
-  gap: 15px;
+.action-buttons{
+margin-top:20px;
+display:flex;
+gap:15px;
 }
 
-.action-buttons button {
-  padding: 12px 20px;
-  border: none;
-  border-radius: 10px;
-  background: #222;
-  color: white;
-  cursor: pointer;
+.action-buttons button{
+padding:12px 20px;
+border:none;
+border-radius:10px;
+background:#222;
+color:white;
+cursor:pointer;
 }
 
-.lang { display: none; }
+.lang{display:none;}
 
-/* ================= QR ================= */
-.qr-box {
-  background: white;
-  padding: 30px;
-  border-radius: 15px;
-  position: relative;
-  text-align: center;
+.qr-box{
+background:white;
+padding:30px;
+border-radius:15px;
+position:relative;
+text-align:center;
 }
 
-.qr-box img { width: 300px; }
-
-.qr-close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 25px;
-  cursor: pointer;
+.qr-box img{
+width:300px;
 }
 
-/* ================= CAT BUTTON ================= */
+.qr-close{
+position:absolute;
+top:10px;
+right:15px;
+font-size:25px;
+cursor:pointer;
+}
+
 .cat-button{
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  font-size: 40px;
-  cursor: pointer;
-  z-index: 1500;
-  transition: transform 0.2s;
-}
-
-.cat-button:hover{
-  transform: scale(1.2);
+position:fixed;
+bottom:20px;
+left:20px;
+font-size:40px;
+cursor:pointer;
+z-index:1500;
 }
 
 </style>
@@ -178,113 +175,106 @@ h1 {
 <body>
 
 <div class="lang-bar">
-  <img src="us.png" class="flag" onclick="setLang('en')">
-  <img src="jp.png" class="flag" onclick="setLang('jp')">
-  <img src="cn.png" class="flag" onclick="setLang('cn')">
+<img src="us.png" class="flag" onclick="setLang('en')">
+<img src="jp.png" class="flag" onclick="setLang('jp')">
+<img src="cn.png" class="flag" onclick="setLang('cn')">
 </div>
 
-<h1>Events & Exhibitions</h1>
+<h1 id="title">Events & Exhibitions</h1>
 
-<div class="gallery">
-  <img src="beauty.png" class="thumbnail" onclick="openPopup('popup1')">
-  <img src="soju.png" class="thumbnail" onclick="openPopup('popup2')">
-  <img src="bts.png" class="thumbnail" onclick="openPopup('popup3')">
-</div>
+<div class="gallery"></div>
 
-<!-- EVENT 1 -->
-<div id="popup1" class="popup">
-<div class="popup-content">
-<button class="close-btn" onclick="closePopup('popup1')">✖</button>
-<img src="beauty.png">
-<div class="info">
-<div class="lang en"><b>Event Name</b><br>Beauty Expo<br>Date: May 20<br>Location: COEX</div>
-<div class="lang jp"><b>イベント名</b><br>ビューティー展示会<br>日付: 5月20日<br>場所: COEX</div>
-<div class="lang cn"><b>活动名称</b><br>美容展览<br>日期: 5月20日<br>地点: COEX</div>
-<div class="action-buttons">
-<button onclick="openMapPopup('코엑스서울')">📍 MAP</button>
-<button onclick="openQR('qr1')">📱 QR</button>
-</div>
-</div>
+<!-- QR popup -->
+<div id="qrPopup" class="qr-popup">
+<div class="qr-box">
+<div class="qr-close" onclick="closeQR()">✖</div>
+<img id="qrImage">
 </div>
 </div>
 
-<!-- EVENT 2 -->
-<div id="popup2" class="popup">
-<div class="popup-content">
-<button class="close-btn" onclick="closePopup('popup2')">✖</button>
-<img src="soju.png">
-<div class="info">
-<div class="lang en">Soju Festival<br>Date: June 15<br>Location: Seoul</div>
-<div class="lang jp">焼酎フェスティバル<br>日付: 6月15日<br>場所: ソウル</div>
-<div class="lang cn">烧酒节<br>日期: 6月15日<br>地点: 首尔</div>
-<div class="action-buttons">
-<button onclick="openMapPopup('명동대성당')">📍 MAP</button>
-<button onclick="openQR('qr2')">📱 QR</button>
-</div>
-</div>
-</div>
-</div>
-
-<!-- EVENT 3 -->
-<div id="popup3" class="popup">
-<div class="popup-content">
-<button class="close-btn" onclick="closePopup('popup3')">✖</button>
-<img src="bts.png">
-<div class="info">
-<div class="lang en">BTS Exhibition<br>Date: July 10<br>Location: Seoul</div>
-<div class="lang jp">BTS 展示会<br>日付: 7月10日<br>場所: ソウル</div>
-<div class="lang cn">BTS 展览<br>日期: 7月10日<br>地点: 首尔</div>
-<div class="action-buttons">
-<button onclick="openMapPopup('카카오프렌즈 홍대 플래그십 스토어')">📍 MAP</button>
-<button onclick="openQR('qr3')">📱 QR</button>
-</div>
-</div>
-</div>
-</div>
-
-<!-- QR -->
-<div id="qr1" class="qr-popup"><div class="qr-box"><div class="qr-close" onclick="closeQR('qr1')">✖</div><img src="beautyqr.png"></div></div>
-<div id="qr2" class="qr-popup"><div class="qr-box"><div class="qr-close" onclick="closeQR('qr2')">✖</div><img src="sojuqr.png"></div></div>
-<div id="qr3" class="qr-popup"><div class="qr-box"><div class="qr-close" onclick="closeQR('qr3')">✖</div><img src="btsqr.png"></div></div>
-
-<!-- CAT DONATION QR -->
+<!-- cat qr -->
 <div id="catQR" class="qr-popup">
 <div class="qr-box">
 <div class="qr-close" onclick="closeQR('catQR')">✖</div>
-<h3 style="margin-bottom:15px;">Feed the cats 🐱</h3>
+<h3>Feed the cats 🐱</h3>
 <img src="ritoqr.jpg">
 </div>
 </div>
 
-<!-- CAT BUTTON -->
-<div class="cat-button" onclick="openQR('catQR')" title="Feed the cats">
-🐱
-</div>
+<div class="cat-button" onclick="openQR('ritoqr.jpg')">🐱</div>
 
-<!-- MAP -->
+<!-- map popup -->
 <div id="mapPopup" class="popup">
-<div class="popup-content" style="flex-direction:column; max-width:900px;">
+<div class="popup-content" style="flex-direction:column;">
 <button class="close-btn" onclick="closeMap()">✖</button>
-<iframe id="mapFrame" width="100%" height="500" style="border:0;border-radius:10px;" allowfullscreen></iframe>
+<iframe id="mapFrame" width="100%" height="500" style="border:0;border-radius:10px;"></iframe>
 </div>
 </div>
 
-<!-- EASTER EGG POPUP -->
+<!-- easter egg -->
 <div id="creatorPopup" class="popup">
-  <div class="popup-content" style="flex-direction:column; align-items:center; text-align:center; max-width:450px; padding:20px;">
-    <button class="close-btn" onclick="closePopup('creatorPopup')">✖</button>
-    <img src="creator.jpg" style="width:80%; max-width:300px; height:auto; border-radius:12px; margin-bottom:15px;">
-    <h2 style="font-size:1.5rem; margin-bottom:8px;">Secret Developer</h2>
-    <p style="font-size:1rem;">Made by RITO 😎</p>
-  </div>
+<div class="popup-content" style="flex-direction:column;align-items:center;text-align:center;max-width:450px;">
+<button class="close-btn" onclick="closePopup('creatorPopup')">✖</button>
+<img src="creator.jpg" style="width:80%;border-radius:12px;">
+<h2>Secret Developer</h2>
+<p>Made by RITO 😎</p>
 </div>
+</div>
+
 <audio id="secretAudio" src="secret.mp3"></audio>
 
 <script>
 
+/* =========================
+EVENT DATA
+========================= */
+
+const events=[
+
+{
+id:"beauty",
+image:"beauty.png",
+map:"코엑스서울",
+qr:"beautyqr.png",
+text:{
+en:{title:"Beauty Expo",date:"May 20",location:"COEX"},
+jp:{title:"ビューティー展示会",date:"5月20日",location:"COEX"},
+cn:{title:"美容展览",date:"5月20日",location:"COEX"}
+}
+},
+
+{
+id:"soju",
+image:"soju.png",
+map:"명동대성당",
+qr:"sojuqr.png",
+text:{
+en:{title:"Soju Festival",date:"June 15",location:"Seoul"},
+jp:{title:"焼酎フェスティバル",date:"6月15日",location:"ソウル"},
+cn:{title:"烧酒节",date:"6月15日",location:"首尔"}
+}
+},
+
+{
+id:"bts",
+image:"bts.png",
+map:"카카오프렌즈 홍대 플래그십 스토어",
+qr:"btsqr.png",
+text:{
+en:{title:"BTS Exhibition",date:"July 10",location:"Seoul"},
+jp:{title:"BTS 展示会",date:"7月10日",location:"ソウル"},
+cn:{title:"BTS 展览",date:"7月10日",location:"首尔"}
+}
+}
+
+];
+
+/* =========================
+LANGUAGE
+========================= */
+
 let currentLang="en";
 
-const titleEl=document.querySelector("h1");
 const titles={
 en:"Events & Exhibitions",
 jp:"イベント＆展示会",
@@ -292,77 +282,236 @@ cn:"活动与展览"
 };
 
 function setLang(lang){
+
 currentLang=lang;
+
 document.querySelectorAll(".lang").forEach(el=>el.style.display="none");
 document.querySelectorAll("."+lang).forEach(el=>el.style.display="block");
-titleEl.textContent=titles[lang];
+
+document.getElementById("title").textContent=titles[lang];
+
 }
 
+/* =========================
+CREATE EVENTS
+========================= */
+
+const gallery=document.querySelector(".gallery");
+
+events.forEach(event=>{
+
+let img=document.createElement("img");
+img.src=event.image;
+img.className="thumbnail";
+img.onclick=()=>openPopup(event.id);
+
+gallery.appendChild(img);
+
+createPopup(event);
+
+});
+
+/* =========================
+CREATE POPUP
+========================= */
+
+function createPopup(event){
+
+let popup=document.createElement("div");
+popup.className="popup";
+popup.id=event.id;
+
+popup.innerHTML=`
+
+<div class="popup-content">
+
+<button class="close-btn" onclick="closePopup('${event.id}')">✖</button>
+
+<img src="${event.image}">
+
+<div class="info">
+
+<div class="lang en">
+<b>Event Name</b><br>
+${event.text.en.title}<br>
+Date: ${event.text.en.date}<br>
+Location: ${event.text.en.location}
+</div>
+
+<div class="lang jp">
+<b>イベント名</b><br>
+${event.text.jp.title}<br>
+日付: ${event.text.jp.date}<br>
+場所: ${event.text.jp.location}
+</div>
+
+<div class="lang cn">
+<b>活动名称</b><br>
+${event.text.cn.title}<br>
+日期: ${event.text.cn.date}<br>
+地点: ${event.text.cn.location}
+</div>
+
+<div class="action-buttons">
+
+<button onclick="openMapPopup('${event.map}')">📍 MAP</button>
+
+<button onclick="openQR('${event.qr}')">📱 QR</button>
+
+</div>
+
+</div>
+</div>
+
+`;
+
+document.body.appendChild(popup);
+
+}
+
+/* =========================
+POPUP
+========================= */
+
 function openPopup(id){
+
 document.querySelectorAll(".popup").forEach(p=>{p.style.display="none";p.classList.remove("show");});
+
 let popup=document.getElementById(id);
+
 popup.style.display="flex";
-setTimeout(()=>{popup.classList.add("show");},10);
-resetTimer();
+
+setTimeout(()=>popup.classList.add("show"),10);
+
 }
 
 function closePopup(id){
+
 let popup=document.getElementById(id);
+
 popup.classList.remove("show");
-setTimeout(()=>{popup.style.display="none";},300);
+
+setTimeout(()=>popup.style.display="none",300);
+
 }
 
-function openQR(id){let qr=document.getElementById(id);qr.style.display="flex";setTimeout(()=>qr.classList.add("show"),10);}
-function closeQR(id){let qr=document.getElementById(id);qr.classList.remove("show");setTimeout(()=>qr.style.display="none",300);}
-function openMapPopup(place){let mapUrl="https://www.google.com/maps?q="+encodeURIComponent(place)+"&output=embed";document.getElementById("mapFrame").src=mapUrl;let popup=document.getElementById("mapPopup");popup.style.display="flex";setTimeout(()=>popup.classList.add("show"),10);}
-function closeMap(){let popup=document.getElementById("mapPopup");popup.classList.remove("show");setTimeout(()=>popup.style.display="none",300);}
+/* =========================
+QR
+========================= */
+
+function openQR(src){
+
+let qr=document.getElementById("qrPopup");
+
+document.getElementById("qrImage").src=src;
+
+qr.style.display="flex";
+
+setTimeout(()=>qr.classList.add("show"),10);
+
+}
+
+function closeQR(){
+
+let qr=document.getElementById("qrPopup");
+
+qr.classList.remove("show");
+
+setTimeout(()=>qr.style.display="none",300);
+
+}
+
+/* =========================
+MAP
+========================= */
+
+function openMapPopup(place){
+
+let mapUrl="https://www.google.com/maps?q="+encodeURIComponent(place)+"&output=embed";
+
+document.getElementById("mapFrame").src=mapUrl;
+
+let popup=document.getElementById("mapPopup");
+
+popup.style.display="flex";
+
+setTimeout(()=>popup.classList.add("show"),10);
+
+}
+
+function closeMap(){
+
+let popup=document.getElementById("mapPopup");
+
+popup.classList.remove("show");
+
+setTimeout(()=>popup.style.display="none",300);
+
+}
+
+/* =========================
+IDLE RESET
+========================= */
 
 let idleTime=0;
-function timerIncrement(){idleTime++;if(idleTime>30){resetScreen();}}
-function resetTimer(){idleTime=0;}
-function resetScreen(){document.querySelectorAll(".popup").forEach(p=>{p.style.display="none";p.classList.remove("show");});document.querySelectorAll(".qr-popup").forEach(p=>{p.style.display="none";p.classList.remove("show");});setLang("en");}
 
-document.addEventListener("mousemove",resetTimer);
-document.addEventListener("click",resetTimer);
-document.addEventListener("touchstart",resetTimer);
+function timerIncrement(){
+
+idleTime++;
+
+if(idleTime>30){
+
+resetScreen();
+
+}
+
+}
+
+function resetScreen(){
+
+document.querySelectorAll(".popup,.qr-popup").forEach(p=>{
+
+p.style.display="none";
+
+p.classList.remove("show");
+
+});
+
+setLang("en");
+
+}
+
+document.addEventListener("mousemove",()=>idleTime=0);
+document.addEventListener("click",()=>idleTime=0);
+document.addEventListener("touchstart",()=>idleTime=0);
+
 setInterval(timerIncrement,1000);
 
-window.onload=function(){setLang("en");}
+/* =========================
+EASTER EGG
+========================= */
 
-/* 바깥 클릭 닫기 */
-document.querySelectorAll(".popup").forEach(popup=>{
-popup.addEventListener("click",function(e){
-if(e.target===popup){popup.classList.remove("show");setTimeout(()=>popup.style.display="none",300);}
-});
-});
-document.querySelectorAll(".qr-popup").forEach(popup=>{
-popup.addEventListener("click",function(e){
-if(e.target===popup){popup.classList.remove("show");setTimeout(()=>popup.style.display="none",300);}
-});
-});
+let logoClick=0;
 
-/* ===========================
-   EASTER EGG 기능
-=========================== */
+document.getElementById("title").onclick=()=>{
 
-let logoClickCount = 0;
-titleEl.addEventListener("click", function(){
-  logoClickCount++;
-  if(logoClickCount >= 5){
-    document.getElementById("secretAudio").play();
-    openPopup("creatorPopup");
-    logoClickCount = 0;
-  }
-  setTimeout(()=>{logoClickCount = 0;},2000);
-});
+logoClick++;
 
-/* 팝업 닫으면 음악 정지 */
-const originalClosePopup = closePopup;
-closePopup = function(id){
-  let audio = document.getElementById("secretAudio");
-  if(audio){ audio.pause(); audio.currentTime = 0; }
-  originalClosePopup(id);
+if(logoClick>=5){
+
+document.getElementById("secretAudio").play();
+
+openPopup("creatorPopup");
+
+logoClick=0;
+
+}
+
+setTimeout(()=>logoClick=0,2000);
+
 };
+
+window.onload=()=>setLang("en");
 
 </script>
 
