@@ -6,6 +6,7 @@
 <title>Events & Exhibitions</title>
 
 <style>
+
 /* ================= 기본 스타일 ================= */
 html, body {
   margin: 0;
@@ -41,6 +42,7 @@ h1 {
   gap: 10px;
   z-index: 2000;
 }
+
 .flag {
   width: 45px;
   cursor: pointer;
@@ -57,6 +59,7 @@ h1 {
   margin-left: auto;
   margin-right: auto;
 }
+
 .thumbnail {
   width: 330px;
   height: 330px;
@@ -65,20 +68,25 @@ h1 {
   cursor: pointer;
   transition: 0.3s;
 }
-.thumbnail:hover { transform: scale(1.05); }
+
+.thumbnail:hover {
+  transform: scale(1.05);
+}
 
 /* ================= 팝업 ================= */
 .popup, .qr-popup {
   display: none;
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0,0,0,0.8);
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  opacity:0; 
-  transition:opacity 0.35s ease; 
+  opacity:0;
+  transition:opacity 0.35s ease;
 }
 
 .popup.show, .qr-popup.show{
@@ -94,12 +102,12 @@ h1 {
   display: flex;
   gap: 30px;
   position: relative;
-  transform:scale(0.85); 
-  transition:transform 0.35s ease; 
+  transform:scale(0.85);
+  transition:transform 0.35s ease;
 }
 
 .popup.show .popup-content{
-  transform:scale(1); 
+  transform:scale(1);
 }
 
 .popup-content img {
@@ -108,7 +116,8 @@ h1 {
 
 .close-btn {
   position: absolute;
-  top: 15px; right: 20px;
+  top: 15px;
+  right: 20px;
   font-size: 30px;
   border: none;
   background: none;
@@ -139,6 +148,7 @@ h1 {
 .lang { display: none; }
 
 /* ================= QR ================= */
+
 .qr-box {
   background: white;
   padding: 30px;
@@ -147,7 +157,9 @@ h1 {
   text-align: center;
 }
 
-.qr-box img { width: 300px; }
+.qr-box img {
+  width: 300px;
+}
 
 .qr-close {
   position: absolute;
@@ -158,6 +170,7 @@ h1 {
 }
 
 /* ================= CAT BUTTON ================= */
+
 .cat-button{
   position: fixed;
   bottom: 20px;
@@ -242,12 +255,12 @@ h1 {
 </div>
 </div>
 
-<!-- QR -->
+<!-- EVENT QR -->
 <div id="qr1" class="qr-popup"><div class="qr-box"><div class="qr-close" onclick="closeQR('qr1')">✖</div><img src="beautyqr.png"></div></div>
 <div id="qr2" class="qr-popup"><div class="qr-box"><div class="qr-close" onclick="closeQR('qr2')">✖</div><img src="sojuqr.png"></div></div>
 <div id="qr3" class="qr-popup"><div class="qr-box"><div class="qr-close" onclick="closeQR('qr3')">✖</div><img src="btsqr.png"></div></div>
 
-<!-- CAT DONATION QR -->
+<!-- CAT QR -->
 <div id="catQR" class="qr-popup">
 <div class="qr-box">
 <div class="qr-close" onclick="closeQR('catQR')">✖</div>
@@ -257,7 +270,7 @@ h1 {
 </div>
 
 <!-- CAT BUTTON -->
-<div class="cat-button" onclick="openQR('catQR')" title="Feed the cats">
+<div class="cat-button" onclick="openCatQR()" title="Feed the cats">
 🐱
 </div>
 
@@ -269,22 +282,26 @@ h1 {
 </div>
 </div>
 
-<!-- EASTER EGG POPUP -->
+<!-- EASTER EGG -->
 <div id="creatorPopup" class="popup">
-  <div class="popup-content" style="flex-direction:column; align-items:center; text-align:center; max-width:450px; padding:20px;">
-    <button class="close-btn" onclick="closePopup('creatorPopup')">✖</button>
-    <img src="creator.jpg" style="width:80%; max-width:300px; height:auto; border-radius:12px; margin-bottom:15px;">
-    <h2 style="font-size:1.5rem; margin-bottom:8px;">Secret Developer</h2>
-    <p style="font-size:1rem;">Made by RITO 😎</p>
-  </div>
+<div class="popup-content" style="flex-direction:column; align-items:center; text-align:center; max-width:450px;">
+<button class="close-btn" onclick="closePopup('creatorPopup')">✖</button>
+<img src="creator.jpg" style="width:80%; border-radius:12px;">
+<h2>Secret Developer</h2>
+<p>Made by RITO 😎</p>
 </div>
+</div>
+
+<!-- AUDIO -->
 <audio id="secretAudio" src="secret.mp3"></audio>
+<audio id="catAudio" src="catmeow.mp3"></audio>
 
 <script>
 
 let currentLang="en";
 
 const titleEl=document.querySelector("h1");
+
 const titles={
 en:"Events & Exhibitions",
 jp:"イベント＆展示会",
@@ -302,67 +319,86 @@ function openPopup(id){
 document.querySelectorAll(".popup").forEach(p=>{p.style.display="none";p.classList.remove("show");});
 let popup=document.getElementById(id);
 popup.style.display="flex";
-setTimeout(()=>{popup.classList.add("show");},10);
-resetTimer();
+setTimeout(()=>popup.classList.add("show"),10);
 }
 
 function closePopup(id){
 let popup=document.getElementById(id);
 popup.classList.remove("show");
-setTimeout(()=>{popup.style.display="none";},300);
+setTimeout(()=>popup.style.display="none",300);
 }
 
-function openQR(id){let qr=document.getElementById(id);qr.style.display="flex";setTimeout(()=>qr.classList.add("show"),10);}
-function closeQR(id){let qr=document.getElementById(id);qr.classList.remove("show");setTimeout(()=>qr.style.display="none",300);}
-function openMapPopup(place){let mapUrl="https://www.google.com/maps?q="+encodeURIComponent(place)+"&output=embed";document.getElementById("mapFrame").src=mapUrl;let popup=document.getElementById("mapPopup");popup.style.display="flex";setTimeout(()=>popup.classList.add("show"),10);}
-function closeMap(){let popup=document.getElementById("mapPopup");popup.classList.remove("show");setTimeout(()=>popup.style.display="none",300);}
+function openQR(id){
+let qr=document.getElementById(id);
+qr.style.display="flex";
+setTimeout(()=>qr.classList.add("show"),10);
+}
 
-let idleTime=0;
-function timerIncrement(){idleTime++;if(idleTime>30){resetScreen();}}
-function resetTimer(){idleTime=0;}
-function resetScreen(){document.querySelectorAll(".popup").forEach(p=>{p.style.display="none";p.classList.remove("show");});document.querySelectorAll(".qr-popup").forEach(p=>{p.style.display="none";p.classList.remove("show");});setLang("en");}
+function closeQR(id){
 
-document.addEventListener("mousemove",resetTimer);
-document.addEventListener("click",resetTimer);
-document.addEventListener("touchstart",resetTimer);
-setInterval(timerIncrement,1000);
+let qr=document.getElementById(id);
+qr.classList.remove("show");
+setTimeout(()=>qr.style.display="none",300);
 
-window.onload=function(){setLang("en");}
+if(id==="catQR"){
+let audio=document.getElementById("catAudio");
+audio.pause();
+audio.currentTime=0;
+}
 
-/* 바깥 클릭 닫기 */
-document.querySelectorAll(".popup").forEach(popup=>{
-popup.addEventListener("click",function(e){
-if(e.target===popup){popup.classList.remove("show");setTimeout(()=>popup.style.display="none",300);}
+}
+
+function openCatQR(){
+
+let qr=document.getElementById("catQR");
+let audio=document.getElementById("catAudio");
+
+qr.style.display="flex";
+setTimeout(()=>qr.classList.add("show"),10);
+
+audio.currentTime=0;
+audio.play();
+
+}
+
+function openMapPopup(place){
+let mapUrl="https://www.google.com/maps?q="+encodeURIComponent(place)+"&output=embed";
+document.getElementById("mapFrame").src=mapUrl;
+let popup=document.getElementById("mapPopup");
+popup.style.display="flex";
+setTimeout(()=>popup.classList.add("show"),10);
+}
+
+function closeMap(){
+let popup=document.getElementById("mapPopup");
+popup.classList.remove("show");
+setTimeout(()=>popup.style.display="none",300);
+}
+
+window.onload=function(){
+setLang("en");
+}
+
+/* EASTER EGG */
+
+let logoClickCount=0;
+
+titleEl.addEventListener("click",function(){
+
+logoClickCount++;
+
+if(logoClickCount>=5){
+
+document.getElementById("secretAudio").play();
+openPopup("creatorPopup");
+
+logoClickCount=0;
+
+}
+
+setTimeout(()=>{logoClickCount=0;},2000);
+
 });
-});
-document.querySelectorAll(".qr-popup").forEach(popup=>{
-popup.addEventListener("click",function(e){
-if(e.target===popup){popup.classList.remove("show");setTimeout(()=>popup.style.display="none",300);}
-});
-});
-
-/* ===========================
-   EASTER EGG 기능
-=========================== */
-
-let logoClickCount = 0;
-titleEl.addEventListener("click", function(){
-  logoClickCount++;
-  if(logoClickCount >= 5){
-    document.getElementById("secretAudio").play();
-    openPopup("creatorPopup");
-    logoClickCount = 0;
-  }
-  setTimeout(()=>{logoClickCount = 0;},2000);
-});
-
-/* 팝업 닫으면 음악 정지 */
-const originalClosePopup = closePopup;
-closePopup = function(id){
-  let audio = document.getElementById("secretAudio");
-  if(audio){ audio.pause(); audio.currentTime = 0; }
-  originalClosePopup(id);
-};
 
 </script>
 
