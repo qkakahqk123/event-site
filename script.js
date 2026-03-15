@@ -114,6 +114,15 @@ function openMap(place){
   document.body.appendChild(mapPopup);
   mapPopup.style.display = "flex";
   setTimeout(() => mapPopup.classList.add("show"), 10);
+
+  // 모바일/데스크탑 공통 배경 터치 닫기
+  const closeMapOnOutside = (e) => {
+    if(!e.target.closest('.popup-content')){
+      mapPopup.remove();
+    }
+  };
+  mapPopup.addEventListener('click', closeMapOnOutside);
+  mapPopup.addEventListener('touchstart', closeMapOnOutside);
 }
 
 // ================= EVENT GENERATION =================
@@ -172,9 +181,9 @@ titleEl.addEventListener("click", () => {
   setTimeout(() => logoClickCount = 0, 2000);
 });
 
-// ================= POPUP & QR BACKGROUND CLICK =================
+// ================= POPUP & QR BACKGROUND CLICK (모바일 포함) =================
 document.querySelectorAll('.popup, .qr-popup').forEach(popup => {
-  popup.addEventListener('click', function(e){
+  const closeOnOutside = (e) => {
     if(!e.target.closest('.popup-content') && !e.target.closest('.qr-box')){
       if(popup.classList.contains('qr-popup')){
         closeQR(popup.id);
@@ -182,7 +191,9 @@ document.querySelectorAll('.popup, .qr-popup').forEach(popup => {
         closePopup(popup.id);
       }
     }
-  });
+  };
+  popup.addEventListener('click', closeOnOutside);
+  popup.addEventListener('touchstart', closeOnOutside);
 });
 
 // ================= INIT =================
