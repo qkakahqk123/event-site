@@ -249,26 +249,20 @@ transform:scale(1.2);
 
 /* ================= CREATOR POPUP ================= */
 
-.creator-box{
-
-flex-direction:column;
-
-align-items:center;
-
-text-align:center;
-
-max-width:450px;
+.creator-box {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 300px;      
+    padding: 15px;       
 }
 
-.creator-box img{
-
-width:80%;
-
-border-radius:12px;
-
-margin-bottom:15px;
+.creator-box img {
+    width: 100px;          
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 10px;
 }
-
 
 /* === ADDED : 모바일 반응형 === */
 
