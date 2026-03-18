@@ -1,9 +1,9 @@
 let currentLang = "en";
 
 const events = [
-  {id:"event1", img:"beauty.png", qr:"beautyqr.png", map:"COEX, Seoul", title:{en:"Beauty Expo",jp:"ビューティー展示会",cn:"美容展览"}, date:{en:"May 20",jp:"5月20日",cn:"5月20日"}, location:{en:"COEX",jp:"COEX",cn:"COEX"}},
-  {id:"event2", img:"soju.png", qr:"sojuqr.png", map:"Myeongdong Cathedral", title:{en:"Soju Festival",jp:"焼酎フェスティバル",cn:"烧酒节"}, date:{en:"June 15",jp:"6月15日",cn:"6月15日"}, location:{en:"Seoul",jp:"ソウル",cn:"首尔"}},
-  {id:"event3", img:"bts.png", qr:"btsqr.png", map:"Kakao Friends Hongdae", title:{en:"BTS Exhibition",jp:"BTS 展示会",cn:"BTS 展览"}, date:{en:"July 10",jp:"7月10日",cn:"7月10日"}, location:{en:"Seoul",jp:"ソウル",cn:"首尔"}}
+  {id:"event1", img:"a.png", qr:"beautyqr.png", map:"맵달SEOUL 성수", title:{en:"Beauty Expo",jp:"ビューティー展示会",cn:"美容展览"}, date:{en:"May 20",jp:"5月20日",cn:"5月20日"}, location:{en:"COEX",jp:"COEX",cn:"COEX"}},
+  {id:"event2", img:"b.png", qr:"sojuqr.png", map:"자이소 팝업", title:{en:"Soju Festival",jp:"焼酎フェスティバル",cn:"烧酒节"}, date:{en:"June 15",jp:"6月15日",cn:"6月15日"}, location:{en:"Seoul",jp:"ソウル",cn:"首尔"}},
+  {id:"event3", img:"c.png", qr:"btsqr.png", map:"무신사 스토어 성수 대림창고", title:{en:"BTS Exhibition",jp:"BTS 展示会",cn:"BTS 展览"}, date:{en:"July 10",jp:"7月10日",cn:"7月10日"}, location:{en:"Seoul",jp:"ソウル",cn:"首尔"}}
 ];
 
 const titleEl = document.getElementById("title");
