@@ -1,7 +1,7 @@
 let currentLang = "en";
 
 const events = [
-  {id:"event1", img:"a.png", qr:"beautyqr.png", map:"맵달SEOUL 성수", title:{en:"Beauty Expo",jp:"ビューティー展示会",cn:"美容展览"}, date:{en:"MARCH 10~27",jp:"4月10日~27日",cn:"4月10日~27日"}, location:{en:"COEX",jp:"COEX",cn:"COEX"}},
+  {id:"event1", img:"a.png", qr:"beautyqr.png", map:"맵달SEOUL 성수", title:{en:"Beauty Expo",jp:"ビューティー展示会",cn:"美容展览"}, date:{en:"MARCH 10~27",jp:"3月10日~27日",cn:"3月10日~27日"}, location:{en:"COEX",jp:"COEX",cn:"COEX"}},
   {id:"event2", img:"b.png", qr:"sojuqr.png", map:"자이소 팝업", title:{en:"Soju Festival",jp:"焼酎フェスティバル",cn:"烧酒节"}, date:{en:"June 15",jp:"6月15日",cn:"6月15日"}, location:{en:"Seoul",jp:"ソウル",cn:"首尔"}},
   {id:"event3", img:"c.png", qr:"btsqr.png", map:"무신사 스토어 성수 대림창고", title:{en:"BTS Exhibition",jp:"BTS 展示会",cn:"BTS 展览"}, date:{en:"July 10",jp:"7月10日",cn:"7月10日"}, location:{en:"Seoul",jp:"ソウル",cn:"首尔"}}
 ];
