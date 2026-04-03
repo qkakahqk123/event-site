@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>관리자</title>
+</head>
+<body>
+
+<h2>이벤트 추가</h2>
+
+<input id="title" placeholder="제목"><br><br>
+<input id="date" placeholder="날짜"><br><br>
+<input id="location" placeholder="장소"><br><br>
+
+<input type="file" id="imgFile"><br><br>
+
+<button onclick="addEvent()">추가</button>
+
+<hr>
+
+<h3>이벤트 목록</h3>
+<div id="list"></div>
+
+<script>
+const password = prompt("비밀번호");
+if(password !== "1234"){
+  document.body.innerHTML="";
+}
+
+/* 이미지 압축 */
+function compressImage(file, callback){
+  const reader = new FileReader();
+  reader.onload = e=>{
+    const img = new Image();
+    img.src = e.target.result;
+
+    img.onload = ()=>{
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      const maxWidth = 500;
+      const scale = maxWidth / img.width;
+
+      canvas.width = maxWidth;
+      canvas.height = img.height * scale;
+
+      ctx.drawImage(img,0,0,canvas.width,canvas.height);
+      callback(canvas.toDataURL("image/jpeg",0.7));
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+/* 추가 */
+function addEvent(){
+  const file = document.getElementById("imgFile").files[0];
+  if(!file) return alert("이미지 선택");
+
+  compressImage(file,(imgData)=>{
+    const event = {
+      id:"custom"+Date.now(),
+      title:document.getElementById("title").value,
+      date:document.getElementById("date").value,
+      location:document.getElementById("location").value,
+      img:imgData
+    };
+
+    let events = JSON.parse(localStorage.getItem("events"))||[];
+    events.push(event);
+
+    localStorage.setItem("events",JSON.stringify(events));
+    location.reload();
+  });
+}
+
+/* 리스트 */
+function loadList(){
+  let events = JSON.parse(localStorage.getItem("events"))||[];
+  const list=document.getElementById("list");
+
+  events.forEach(e=>{
+    let div=document.createElement("div");
+    div.innerHTML=`
+      <p>${e.title}</p>
+      <button onclick="edit('${e.id}')">수정</button>
+      <button onclick="remove('${e.id}')">삭제</button>
+      <hr>
+    `;
+    list.appendChild(div);
+  });
+}
+
+/* 수정 */
+function edit(id){
+  let events=JSON.parse(localStorage.getItem("events"))||[];
+  let e=events.find(ev=>ev.id===id);
+
+  e.title=prompt("제목",e.title);
+  e.date=prompt("날짜",e.date);
+  e.location=prompt("장소",e.location);
+
+  localStorage.setItem("events",JSON.stringify(events));
+  location.reload();
+}
+
+/* 삭제 */
+function remove(id){
+  let events=JSON.parse(localStorage.getItem("events"))||[];
+  events=events.filter(e=>e.id!==id);
+
+  localStorage.setItem("events",JSON.stringify(events));
+  location.reload();
+}
+
+loadList();
+</script>
+
+</body>
+</html>
