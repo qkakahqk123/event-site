@@ -2,62 +2,120 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Events & Exhibitions</title>
 
-<!-- CSS 연결 -->
-<link rel="stylesheet" href="style.css" />
+<!-- === CSS 연결 === -->
+<link rel="stylesheet" href="style.css">
 
-<!-- Firebase SDK (모듈 방식) -->
-<script type="module" src="script.js"></script>
 </head>
+
 
 <body>
 
-<!-- 언어 선택 -->
+
+<!-- ================= LANGUAGE ================= -->
+
 <div class="lang-bar">
-  <img src="us.png" class="flag" onclick="setLang('en')" />
-  <img src="jp.png" class="flag" onclick="setLang('jp')" />
-  <img src="cn.png" class="flag" onclick="setLang('cn')" />
+
+<img src="us.png" class="flag" onclick="setLang('en')">
+
+<img src="jp.png" class="flag" onclick="setLang('jp')">
+
+<img src="cn.png" class="flag" onclick="setLang('cn')">
+
 </div>
 
-<!-- 제목 -->
+
+
+<!-- ================= TITLE ================= -->
+
 <h1 id="title">Events & Exhibitions</h1>
 
-<!-- 갤러리 -->
+
+
+<!-- ================= GALLERY ================= -->
+
 <div id="gallery" class="gallery"></div>
 
-<!-- 팝업 컨테이너 -->
+
+
+<!-- ================= POPUP CONTAINER ================= -->
+
 <div id="popupContainer"></div>
 
-<!-- QR 컨테이너 -->
+
+
+<!-- ================= QR CONTAINER ================= -->
+
 <div id="qrContainer"></div>
 
-<!-- 고양이 QR 팝업 -->
+
+
+<!-- ================= CAT QR ================= -->
+
 <div id="catQR" class="qr-popup">
-  <div class="qr-box">
-    <div class="qr-close" onclick="closeQR('catQR')">✖</div>
-    <h3>Feed the cats 🐱</h3>
-    <img src="ritoqr.jpg" />
-  </div>
+
+<div class="qr-box">
+
+<div class="qr-close" onclick="closeQR('catQR')">✖</div>
+
+<h3>Feed the cats 🐱</h3>
+
+<img src="ritoqr.jpg">
+
 </div>
 
-<!-- 고양이 버튼 -->
-<div class="cat-button" onclick="openQR('catQR')">🐱</div>
+</div>
 
-<!-- 제작자 팝업 -->
+
+
+<!-- ================= CAT BUTTON ================= -->
+
+<div class="cat-button" onclick="openQR('catQR')">
+
+🐱
+
+</div>
+
+
+
+<!-- ================= CREATOR POPUP ================= -->
+
 <div id="creatorPopup" class="popup">
-  <div class="popup-content creator-box">
-    <button class="close-btn" onclick="closePopup('creatorPopup')">✖</button>
-    <img src="creator.jpg" />
-    <h2>Secret Developer</h2>
-    <p>Made by RITO 😎</p>
-  </div>
+
+<div class="popup-content creator-box">
+
+<button class="close-btn" onclick="closePopup('creatorPopup')">✖</button>
+
+<img src="creator.jpg">
+
+<h2>Secret Developer</h2>
+
+<p>Made by RITO 😎</p>
+
 </div>
 
-<!-- 관리자 로그인 버튼 -->
-<button id="adminToggleBtn" style="position:fixed; top:80px; right:20px; z-index:3000;">관리자 모드</button>
+</div>
+
+
+
+<!-- ================= AUDIO ================= -->
+
+<!-- Easter egg sound -->
+<audio id="secretAudio" src="secret.mp3"></audio>
+
+<!-- === ADDED : 고양이 소리 === -->
+<audio id="catAudio" src="catmeow.mp3"></audio>
+
+
+
+<!-- ================= JS 연결 ================= -->
+
+<script src="script.js"></script>
 
 </body>
 </html>
