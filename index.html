@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYMYTHS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+
+    <div id="loading-screen" class="screen active">
+        <div class="logo-title">MYMYTHS</div>
+        <div class="dots">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+
+    <div id="login-screen" class="screen">
+        <div class="login-box">
+            <h2>MYMYTHS</h2>
+            <div class="input-group">
+                <input type="text" placeholder="아이디 또는 이메일">
+            </div>
+            <div class="input-group">
+                <input type="password" placeholder="비밀번호">
+            </div>
+            <button class="login-btn" onclick="goToMain()">로그인</button>
+
+            <div class="social-login">
+                <p>간편 소셜 로그인</p>
+                <div class="social-buttons">
+                    <button class="social-btn btn-google" onclick="goToMain()">G</button>
+                    <button class="social-btn btn-facebook" onclick="goToMain()">F</button>
+                    <button class="social-btn btn-apple" onclick="goToMain()">A</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-screen" class="screen">
+        <div class="header">MYMYTHS 소설 목록</div>
+        
+        <div class="novel-grid" id="novel-list-container"></div>
+    </div>
+
+    <div class="modal-overlay" id="novel-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-cover">
+                <img id="modal-img" src="" alt="Cover">
+            </div>
+            <div class="modal-title" id="modal-title">소설 제목</div>
+            <div class="modal-author" id="modal-author">작가 이름</div>
+            <div class="modal-summary" id="modal-summary">줄거리 내용이 들어갑니다.</div>
+        </div>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

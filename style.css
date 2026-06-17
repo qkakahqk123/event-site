@@ -1,285 +1,301 @@
-html, body{
-margin:0;
-padding:0;
-width:100%;
-min-height:100vh;
-font-family:Arial;
-
-background:linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.35)),url("background.jpg");
-background-size:cover;
-background-position:center;
-
-text-align:center;
-overflow-x:hidden;
-}
-
-
-/* ================= TITLE ================= */
-
-h1{
-color:white;
-font-size:4vw;
-margin-top:40px;
-
-text-shadow:0 3px 10px rgba(0,0,0,0.6);
-
-height:100px;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-/* === ADDED === */
-cursor:pointer;
-}
-
-
-/* ================= LANGUAGE ================= */
-
-.lang-bar{
-position:fixed;
-top:20px;
-right:20px;
-display:flex;
-gap:10px;
-z-index:2000;
-}
-
-.flag{
-width:45px;
-cursor:pointer;
-}
-
-
-/* ================= GALLERY ================= */
-
-.gallery{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-
-gap:40px;
-
-margin-top:50px;
-
-max-width:1400px;
-margin-left:auto;
-margin-right:auto;
-}
-
-.thumbnail{
-width:330px;
-height:330px;
-
-object-fit:cover;
-
-border-radius:15px;
-
-cursor:pointer;
-
-transition:0.3s;
-}
-
-.thumbnail:hover{
-transform:scale(1.05);
-}
-
-
-/* ================= POPUP ================= */
-
-.popup,.qr-popup{
-
-display:none;
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background:rgba(0,0,0,0.8);
-
-justify-content:center;
-align-items:center;
-
-z-index:1000;
-
-opacity:0;
-transition:opacity 0.35s ease;
-}
-
-.popup.show,.qr-popup.show{
-opacity:1;
-}
-
-.popup-content{
-
-background:white;
-
-width:90%;
-max-width:1000px;
-
-padding:30px;
-
-border-radius:15px;
-
-display:flex;
-gap:30px;
-
-position:relative;
-
-transform:scale(0.85);
-transition:transform 0.35s ease;
-}
-
-.popup.show .popup-content{
-transform:scale(1);
-}
-
-.popup-content img{
-width:40%;
-border-radius:10px;
-}
-
-
-/* ================= CLOSE ================= */
-
-.close-btn{
-
-position:absolute;
-
-top:15px;
-right:20px;
-
-font-size:30px;
-
-border:none;
-background:none;
-
-cursor:pointer;
-}
-
-
-/* ================= INFO ================= */
-
-.info{
-flex:1;
-text-align:left;
-line-height:1.7;
-}
-
-
-/* ================= BUTTONS ================= */
-
-.action-buttons{
-margin-top:20px;
-display:flex;
-gap:15px;
-}
-
-.action-buttons button{
-
-padding:12px 20px;
-
-border:none;
-
-border-radius:10px;
-
-background:#222;
-color:white;
-
-cursor:pointer;
-}
-
-
-/* ================= LANGUAGE TEXT ================= */
-
-.lang{
-display:none;
-}
-
-
-/* ================= QR ================= */
-
-.qr-box{
-background:white;
-padding:30px;
-border-radius:15px;
-position:relative;
-text-align:center;
-}
-
-.qr-box img{
-width:300px;
-}
-
-.qr-close{
-position:absolute;
-top:10px;
-right:15px;
-font-size:25px;
-cursor:pointer;
-}
-
-
-/* ================= CAT BUTTON ================= */
-
-.cat-button{
-
-position:fixed;
-
-bottom:20px;
-left:20px;
-
-font-size:40px;
-
-cursor:pointer;
-
-z-index:1500;
-
-transition:transform 0.2s;
-}
-
-.cat-button:hover{
-transform:scale(1.2);
-}
-
-
-/* ================= CREATOR POPUP ================= */
-
-.creator-box {
-    flex-direction: column;
+/* 기본 스타일 초기화 */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: #111;
+    color: #fff;
+    display: flex;
+    justify-content: center;
     align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* 앱 컨테이너 (기존 키오스크 비율을 고려한 세로형 뷰포트) */
+.app-container {
+    width: 100%;
+    max-width: 600px;
+    height: 100vh;
+    background: #1a1a1a;
+    position: relative;
+    overflow-y: auto;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+/* 화면 공통 스타일 */
+.screen {
+    display: none;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 40px 20px;
+}
+
+.screen.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================================================
+   1. 로딩 화면 스타일
+   ========================================================================== */
+#loading-screen {
+    justify-content: center;
+    align-items: center;
+    background: #111;
+}
+
+.logo-title {
+    font-size: 48px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.dots {
+    display: flex;
+    gap: 8px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background: #ff3e6c;
+    border-radius: 50%;
+    animation: blink 1.4s infinite both;
+}
+
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes blink {
+    0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+    40% { opacity: 1; transform: scale(1.2); }
+}
+
+/* ==========================================================================
+   2. 로그인 화면 스타일
+   ========================================================================== */
+#login-screen {
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 360px;
     text-align: center;
-    max-width: 300px;      
-    padding: 15px;       
 }
 
-.creator-box img {
-    width: 100px;          
-    height: auto;
+.login-box h2 {
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: #ff3e6c;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    background: #222;
+    color: white;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 16px;
+    background: #ff3e6c;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* 소셜 로그인 디자인 */
+.social-login {
+    margin-top: 50px;
+}
+
+.social-login p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-btn {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.btn-google { background: #fff; color: #000; }
+.btn-facebook { background: #1877f2; color: #fff; }
+.btn-apple { background: #000; color: #fff; border: 1px solid #333; }
+
+/* ==========================================================================
+   3. 메인 소설 목록 화면 스타일
+   ========================================================================== */
+#main-screen {
+    overflow-y: auto;
+}
+
+.header {
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #333;
+    margin-bottom: 30px;
+    color: #ff3e6c;
+}
+
+.novel-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.novel-card {
+    background: #222;
     border-radius: 12px;
-    margin-bottom: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-/* === ADDED : 모바일 반응형 === */
-
-@media (max-width:900px){
-
-.thumbnail{
-width:250px;
-height:250px;
+.novel-card:hover {
+    transform: translateY(-5px);
 }
 
-.popup-content{
-flex-direction:column;
-align-items:center;
+.novel-cover {
+    width: 100%;
+    height: 220px;
+    background: #333;
 }
 
-.popup-content img{
-width:80%;
+.novel-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
+.novel-info {
+    padding: 15px;
+}
+
+.novel-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.novel-author {
+    font-size: 13px;
+    color: #aaa;
+}
+
+/* ==========================================================================
+   4. 줄거리 모달 팝업 스타일
+   ========================================================================== */
+.modal-overlay {
+    display: none;
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background: #222;
+    width: 100%;
+    max-width: 450px;
+    border-radius: 20px;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.modal-cover {
+    width: 150px;
+    height: 210px;
+    margin: 0 auto 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+.modal-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.modal-author {
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 20px;
+}
+
+.modal-summary {
+    font-size: 15px;
+    color: #ddd;
+    line-height: 1.6;
+    text-align: left;
+    max-height: 200px;
+    overflow-y: auto;
+    background: #1a1a1a;
+    padding: 15px;
+    border-radius: 10px;
 }

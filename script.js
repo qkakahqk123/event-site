@@ -1,144 +1,94 @@
-let currentLang = "en";
+// 화면 전환 제어 함수
+function showScreen(id) {
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+}
 
-const events = [
-  {id:"event1", img:"a.png", qr:"beautyqr.png", map:"맵달SEOUL 성수", title:{en:"Beauty Expo",jp:"ビューティー展示会",cn:"美容展览"}, date:{en:"MARCH 10~27",jp:"3月10日~27日",cn:"3月10日~27日"}, location:{en:"COEX",jp:"COEX",cn:"COEX"}},
-  {id:"event2", img:"b.png", qr:"sojuqr.png", map:"자이소 팝업", title:{en:"Soju Festival",jp:"焼酎フェスティバル",cn:"烧酒节"}, date:{en:"June 15",jp:"6月15日",cn:"6月15日"}, location:{en:"Seoul",jp:"ソウル",cn:"首尔"}},
-  {id:"event3", img:"c.png", qr:"btsqr.png", map:"무신사 스토어 성수 대림창고", title:{en:"BTS Exhibition",jp:"BTS 展示会",cn:"BTS 展览"}, date:{en:"July 10",jp:"7月10日",cn:"7月10日"}, location:{en:"Seoul",jp:"ソウル",cn:"首尔"}}
+// 1. 인트로 로딩: 페이지 실행 후 3초(3000ms) 뒤에 로그인 스크린으로 이동
+window.onload = function() {
+    setTimeout(() => {
+        showScreen("login-screen");
+    }, 3000);
+};
+
+// 2. 메인 화면으로 이동 (로그인 버튼 및 소셜 버튼 공통)
+function goToMain() {
+    showScreen("main-screen");
+    renderNovels(); // 메인 화면 진입 시 소설 데이터 로드
+}
+
+/* ==========================================================================
+   3. 소설 로컬 데이터 세팅 (DB 역할 대체)
+   ========================================================================== */
+// 💡 [표지 이미지 수정 가이드] 
+// 같은 폴더에 이미지 파일(예: cover1.jpg)을 넣고 image: "cover1.jpg" 형태로 수정하시면 됩니다.
+// 현재는 정상적인 테스트를 위해 무료 이미지 링크를 걸어둔 상태입니다.
+const NOVEL_DATA = [
+    {
+        id: 1,
+        title: "신화 속 전신이 되었다",
+        author: "김작가",
+        image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=400", 
+        summary: "평범한 대학생이었던 주인공, 눈을 떠보니 그리스 신화 속 몰락해 가던 전쟁의 신이 되어 있었다. 신들의 전쟁에서 살아남기 위한 그의 처절한 신화가 지금 시작된다."
+    },
+    {
+        id: 2,
+        title: "차원 이동자를 위한 가이드",
+        author: "이작가",
+        image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400", 
+        summary: "매일 수백 명이 실종되는 대한민국. 그들은 모두 다른 차원으로 떨어지고 있었다. 생존율 1%의 이세계에서 살아남은 마스터가 전해주는 베테랑 가이드북."
+    },
+    {
+        id: 3,
+        title: "나 혼자 탑 플레이어",
+        author: "박작가",
+        image: "https://images.unsplash.com/photo-1614849963640-9cc74b2a826f?w=400", 
+        summary: "멸망 직전의 세계에 등장한 수수께끼의 탑. 모두가 절망에 빠졌을 때, 과거에서 회귀한 단 한 사람만이 숨겨진 히든 피스들을 독식하기 시작한다."
+    },
+    {
+        id: 4,
+        title: "마법학교의 시한부 천재",
+        author: "최작가",
+        image: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=400", 
+        summary: "시한부 판정을 받은 마법 천재의 아카데미 생존기. 남은 시간은 단 1년, 죽기 전에 세상의 모든 금지된 마법의 진리를 파헤치기로 결심한다."
+    }
 ];
 
-const titleEl = document.getElementById("title");
-const gallery = document.getElementById("gallery");
-const popupContainer = document.getElementById("popupContainer");
-const qrContainer = document.getElementById("qrContainer");
+// 화면에 소설 그리드 카드 그리기
+function renderNovels() {
+    const container = document.getElementById("novel-list-container");
+    container.innerHTML = ""; // 초기화
 
-const titles = { en:"Events & Exhibitions", jp:"イベント＆展示会", cn:"活动与展览" };
+    NOVEL_DATA.forEach(novel => {
+        const card = document.createElement("div");
+        card.className = "novel-card";
+        card.onclick = () => openModal(novel); // 클릭 시 해당 소설 줄거리 모달 오픈
 
-// ================= LANGUAGE =================
-function setLang(lang){
-  currentLang = lang;
-  document.querySelectorAll(".lang").forEach(el => el.style.display="none");
-  document.querySelectorAll("." + lang).forEach(el => el.style.display="block");
-  titleEl.textContent = titles[lang];
+        card.innerHTML = `
+            <div class="novel-cover">
+                <img src="${novel.image}" alt="${novel.title} 표지">
+            </div>
+            <div class="novel-info">
+                <div class="novel-title">${novel.title}</div>
+                <div class="novel-author">${novel.author}</div>
+            </div>
+        `;
+        container.appendChild(card);
+    });
 }
 
-// ================= POPUP =================
-function openPopup(id){
-  document.querySelectorAll(".popup").forEach(p => { p.style.display="none"; p.classList.remove("show"); });
-  let popup = document.getElementById(id);
-  popup.style.display="flex";
-  setTimeout(() => popup.classList.add("show"), 10);
+/* ==========================================================================
+   4. 줄거리 창(모달) 오픈 / 클로즈 제어
+   ========================================================================== */
+function openModal(novel) {
+    document.getElementById("modal-img").src = novel.image;
+    document.getElementById("modal-title").innerText = novel.title;
+    document.getElementById("modal-author").innerText = novel.author;
+    document.getElementById("modal-summary").innerText = novel.summary;
+    
+    document.getElementById("novel-modal").classList.add("active");
 }
 
-function closePopup(id){
-  let audio = document.getElementById("secretAudio");
-  if(audio){ audio.pause(); audio.currentTime = 0; }
-  let popup = document.getElementById(id);
-  popup.classList.remove("show");
-  setTimeout(() => popup.style.display="none", 300);
+function closeModal() {
+    document.getElementById("novel-modal").classList.remove("active");
 }
-
-// ================= QR =================
-function openQR(id){
-  let qr = document.getElementById(id);
-  qr.style.display = "flex";
-  setTimeout(() => qr.classList.add("show"), 10);
-  if(id==="catQR"){ let audio = document.getElementById("catAudio"); if(audio){ audio.currentTime=0; audio.play(); } }
-}
-
-function closeQR(id){
-  let qr = document.getElementById(id);
-  qr.classList.remove("show");
-  setTimeout(() => qr.style.display="none", 300);
-  if(id==="catQR"){ let audio = document.getElementById("catAudio"); if(audio){ audio.pause(); audio.currentTime=0; } }
-}
-
-// ================= MAP =================
-function openMap(place){
-  let mapUrl = "https://www.google.com/maps?q="+encodeURIComponent(place)+"&output=embed";
-  let mapPopup = document.createElement("div");
-  mapPopup.className = "popup";
-  mapPopup.innerHTML = `<div class="popup-content">
-    <button class="close-btn" onclick="this.parentElement.parentElement.remove()">✖</button>
-    <iframe src="${mapUrl}" style="width:100%;height:500px;border:0;border-radius:10px;"></iframe>
-  </div>`;
-  document.body.appendChild(mapPopup);
-  mapPopup.style.display="flex";
-  setTimeout(() => mapPopup.classList.add("show"), 10);
-
-  let preventClick = false;
-
-  const closeMapOnOutside = e => {
-    if(!e.target.closest('.popup-content')){
-      e.stopPropagation();
-      mapPopup.remove();
-      preventClick = true;
-      setTimeout(()=>preventClick=false,50);
-    }
-  };
-
-  mapPopup.addEventListener('click', e=>{ if(preventClick){e.stopPropagation(); e.preventDefault(); return;} closeMapOnOutside(e); });
-  mapPopup.addEventListener('touchend', e=>{ if(preventClick){e.stopPropagation(); e.preventDefault(); return;} closeMapOnOutside(e); });
-
-  const content = mapPopup.querySelector('.popup-content');
-  if(content){ content.addEventListener('click', e=>e.stopPropagation()); content.addEventListener('touchend', e=>e.stopPropagation()); }
-}
-
-// ================= EVENT GENERATION =================
-events.forEach(event=>{
-  let img=document.createElement("img");
-  img.src=event.img; img.className="thumbnail"; img.onclick=()=>openPopup(event.id);
-  gallery.appendChild(img);
-
-  let popup=document.createElement("div");
-  popup.className="popup"; popup.id=event.id;
-  popup.innerHTML=`<div class="popup-content">
-    <button class="close-btn" onclick="closePopup('${event.id}')">✖</button>
-    <img src="${event.img}">
-    <div class="info">
-      <div class="lang en">${event.title.en}<br>Date: ${event.date.en}<br>Location: ${event.location.en}</div>
-      <div class="lang jp">${event.title.jp}<br>日付: ${event.date.jp}<br>場所: ${event.location.jp}</div>
-      <div class="lang cn">${event.title.cn}<br>日期: ${event.date.cn}<br>地点: ${event.location.cn}</div>
-      <div class="action-buttons">
-        <button onclick="openMap('${event.map}')">📍 MAP</button>
-        <button onclick="openQR('${event.id}qr')">📱 QR</button>
-      </div>
-    </div></div>`;
-  popupContainer.appendChild(popup);
-
-  let qr=document.createElement("div");
-  qr.className="qr-popup"; qr.id=event.id+"qr";
-  qr.innerHTML=`<div class="qr-box"><div class="qr-close" onclick="closeQR('${event.id}qr')">✖</div><img src="${event.qr}"></div>`;
-  qrContainer.appendChild(qr);
-});
-
-// ================= EASTER EGG =================
-let logoClickCount=0;
-titleEl.addEventListener("click", ()=>{
-  logoClickCount++;
-  if(logoClickCount>=5){ let audio=document.getElementById("secretAudio"); if(audio) audio.play(); openPopup("creatorPopup"); logoClickCount=0; }
-  setTimeout(()=>logoClickCount=0,2000);
-});
-
-// ================= POPUP & QR BACKGROUND CLICK =================
-let preventClick = false;
-
-document.querySelectorAll('.popup, .qr-popup').forEach(popup=>{
-  const closeOnOutside = e=>{
-    if(!e.target.closest('.popup-content') && !e.target.closest('.qr-box')){
-      e.stopPropagation();
-      if(popup.classList.contains('qr-popup')) closeQR(popup.id);
-      else closePopup(popup.id);
-      preventClick = true;
-      setTimeout(()=>preventClick=false,50);
-    }
-  };
-
-  popup.addEventListener('click', e=>{ if(preventClick){e.stopPropagation(); e.preventDefault(); return;} closeOnOutside(e); });
-  popup.addEventListener('touchend', e=>{ if(preventClick){e.stopPropagation(); e.preventDefault(); return;} closeOnOutside(e); });
-
-  const content = popup.querySelector('.popup-content') || popup.querySelector('.qr-box');
-  if(content){ content.addEventListener('click', e=>e.stopPropagation()); content.addEventListener('touchend', e=>e.stopPropagation()); }
-});
-
-// ================= INIT =================
-window.onload=()=>setLang("en");
